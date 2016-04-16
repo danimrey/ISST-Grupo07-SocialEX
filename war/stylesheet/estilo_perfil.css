@@ -1,0 +1,359 @@
+/*********************************************************************************/
+/* ESTRUCTURA DE LA PAGINA
+/*********************************************************************************/
+
+#icono img{
+    height: 100px;
+    width: 100px;
+}
+
+
+header {
+    /*Efecto transparente en la cabecera*/
+    display: block;
+    padding-left: 150px;
+    padding-right: 150px;
+    /** width: 1000px; **/ 
+}
+
+header form {
+    float: right;
+    padding-top: 20px;
+    border-radius: 15px;
+    font-family: helvetica;
+}
+
+header form #logout{
+    font-size: 15px;
+    background-color: #c4e7ed;
+    font-family: helvetica;
+    border-radius: 15px;
+}
+
+
+#usuario1{
+
+  width: 50px;
+  height:75px;
+}
+
+#usuario2{
+
+  width: 50px;
+  height:75px;
+}
+
+#usuario3{
+
+  width: 50px;
+  height:75px;
+}
+
+#fondo{
+color: black;
+}
+
+
+#logout{
+
+ padding-top: 25px;
+ float:right;
+ 
+/** padding-right: 300px;
+ padding-top: 25px;**/
+}
+
+header form #logout:hover{
+    background-color: #004E50;
+    color: white;
+}
+
+header form #user{
+    border-radius: 15px;
+}
+
+header #nombre{
+    font-size: 15px;
+    background-color: #c4e7ed;
+    font-family: helvetica;
+     
+    border-radius: 15px;
+}
+
+header #nombre:hover{
+    background-color: #004E50;
+    color: white;
+}
+
+header form #nombre{
+    border-radius: 15px;
+}
+
+
+
+li {
+    display: inline;
+}
+
+li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 11px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #444;
+}
+
+textarea {
+width:300px;
+height:80px;
+border: 1px dotted #000099;
+
+}
+
+
+#menu{
+    background-color: #111;
+    text-align: center;
+    padding: 5px 16px;
+}
+
+
+#cuerpo{
+    background-color: #48D1CC ;
+    margin-top:1%;
+    display: block;
+    font-family: helvetica;
+}
+.separador{
+    float: left;
+    height: 120px;
+    margin-top: 3%;
+    border-left: 3px solid white;
+    width:1px;
+}
+footer {
+    padding-left: 150px;
+    padding-right: 150px;
+    background-color: #004E50;
+    margin-top:1%;
+    display: block;
+/**    width: 1000px; **/
+    font-family: helvetica;
+    margin: 0 auto;
+}
+
+
+
+
+
+ #textoIntro{
+    margin:2%;
+    color: #0A4257;
+    font-family: Helvetica;
+    text-align: left;
+    display: inline-block;
+    float: left;
+    padding-left: 120px;
+    width: 400px;
+
+}
+
+ #textoIntro2{
+    margin:2%;
+    color: #0A4257;
+    font-family: Helvetica;
+    text-align: left;
+    float: left;
+    width: 400px;
+
+}
+
+
+#textoIntro p{
+    font-size: 24px;
+    font-family: helvetica;
+    text-align: left;
+}
+
+#textoIntro #tituloIntro h1{
+    font-size: 80px;
+    text-align: left;
+    color: black;
+}
+
+#nombre{
+    position: relative;
+    left: 25%;
+
+}
+
+#Registro{
+
+    margin:2%;
+    color: white;
+    font-family: Helvetica;
+    display: inline-block; 
+    text-align: center;
+    width: 400px;
+    padding-left: 120px;
+    
+}
+
+
+
+#titulo{
+    text-align: center;
+    font-weight:bold;
+    font-size: 20px;
+}
+
+#contenidoIntro{
+    float:left;
+    padding-right: 100px;
+}
+
+/*********************************************************************************/
+/* FORMULARIO
+//Source:
+//http://manuelbaronetti.com.ar/blog/2013/02/facil-y-simple-formulario-de-contacto-con-html5-css-y-php/
+/*********************************************************************************/
+.formulario2{
+    width: auto;
+    width: auto;
+    color: black;
+    font-family: helvetica;
+    margin: 2%;
+    padding: 1%;
+    display:block;
+}
+
+.formulario2 label {
+    display:block;
+    margin-top:2%;
+    letter-spacing:1px;
+}
+.formulario2 form {
+    margin:0 auto;
+    width:400px;
+}
+
+.formulario2 input, textarea {
+    width:380px;
+    height:27px;
+    background:white;
+    border:2px solid #f6f6f6;
+    padding:10px;
+    margin-top:15px;
+    font-size:20px;
+    color:#grey;
+}
+
+.formulario2 textarea {
+    height:150px;
+}
+
+#submit {
+    width:150px;
+    height:50px;
+    border:none;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+#submit:hover{
+    background-color: #004E50;
+    color: white;
+}
+
+
+/*********************************************************************************/
+/* CONTACTO
+/*********************************************************************************/
+#contacto{
+    float:left;
+    font-family: Helvetica;
+    color:white;
+    margin-top:1%;
+    margin-bottom: 1%;
+    width:25%;
+
+}
+#contacto p{
+    color: white;
+    margin-left:10%;
+    font-family: Helvetica;
+    font-size: 18px;
+    font-weight: bold;
+}
+#contacto ul li {
+    padding: 2px 7px; /*Separar el texto*/
+    margin:5px; /* Separar los botones */
+}
+#contacto ul li a{
+    color: white;
+    font-family: Helvetica;
+    text-decoration:none;
+}
+#contacto ul li span:hover {
+    background-color: grey;
+    cursor: pointer; /* cambiar el aspecto del puntero */
+}
+/*********************************************************************************/
+/* ESPACIO EN FOOTER
+/*********************************************************************************/
+
+.espacio {
+    clear:both;
+}
+
+/*********************************************************************************/
+/* LOGO                                                                          */
+/*********************************************************************************/
+
+
+
+
+#icono{
+    alignment-baseline: central;
+    float: left;
+}
+#imagen{
+    alignment-baseline: central;
+    float: center;
+}
+
+#icono img {
+    width: 291px;
+    height: 66px;
+}
+
+#icono h1
+{
+    text-align: left;
+    font-weight: 500;
+    font-size: 1.5em;
+    font-family: Helvetica;
+}
+
+#icono span
+{
+    padding: 0em 0em 0em 0.5em;
+}
+
+#icono a 
+{
+    color: white;
+    text-decoration:none;
+}
+
+#buscar{
+    float:right;
+    width: 25%;
+    margin-right: 2%;
+    margin-top: 2%;
+
+}

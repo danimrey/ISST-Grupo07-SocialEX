@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>ISST_Grupo07_SocialEX</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.ISST_Grupo07_SocialEXServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ISST_Grupo07_SocialEX</servlet-name>
+		<url-pattern>/isst_grupo07_socialex</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>nuevoCliente</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.nuevaTarjeta</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>nuevoCliente</servlet-name>
+		<url-pattern>/nuevoCliente</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>recargaCuenta</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.recargaCuenta</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>recargaCuenta</servlet-name>
+		<url-pattern>/recargaCuenta</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>editarPerfil</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.editarPerfil</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>editarPerfil</servlet-name>
+		<url-pattern>/editarPerfil</url-pattern>
+	</servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>isst_grupo07_socialex</welcome-file>
+	</welcome-file-list>
+</web-app>
