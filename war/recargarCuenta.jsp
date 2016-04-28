@@ -59,6 +59,7 @@
 											<div class="6u 12u$(xsmall)">
 												<input type="text" name="cantidadRecarga" id="cantidadRecarga" value="" placeholder="Cantidad a recargar" min="1" />
 												<input type="hidden" name="localTime" id="localTime" value=""/>
+												<input type="hidden" name="numeroCuenta" id="numeroCuenta" value=<c:out value="${tarjeta}"/> />
                                     				<script type="text/javascript">
                                       					 var now = new Date(); 
                                       					 var weekday = new Array(7);
@@ -78,8 +79,8 @@
 											<div class="12u$">
 												<div class="select-wrapper">
 													<select name="divisas" id="divisa">
-														<option value="EUR">Euros € (EUR)</option>
-														<option value="USD">Dólares estadounidenses $ (USD)</option>
+														<option value="EUR">Euro € (EUR)</option>
+														<option value="USD">Dólar estadounidense $ (USD)</option>
 														<option value="GBP">Libra esterlina £ (GBP)</option>
 														<option value="JPY">Yen japonés ¥ (JPY)</option>
 													</select>

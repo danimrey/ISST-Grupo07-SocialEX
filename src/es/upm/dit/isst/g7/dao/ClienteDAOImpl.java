@@ -8,6 +8,7 @@ import es.upm.dit.isst.model.Cliente;
 
 
 public class ClienteDAOImpl implements ClienteDAO {
+	
 	private static ClienteDAOImpl instance; 
 	private ClienteDAOImpl() {
 	}
@@ -16,13 +17,14 @@ public class ClienteDAOImpl implements ClienteDAO {
 			instance  = new  ClienteDAOImpl( ) ;
 		return instance;  
 	}
+	
 	@Override
-	public void Create(String nombre, String correo,
-			String pais, int notificaciones) {
+	public Cliente Create(String nombre,String apellidos, String correo, String pais, int notificaciones) {
 		EntityManager em = EMFService.get().createEntityManager();
-		Cliente cliente = new Cliente(nombre, correo, pais, notificaciones);
+		Cliente cliente = new Cliente(nombre,apellidos, correo, pais, notificaciones);
 		em.persist(cliente);
 		em.close();
+		return cliente;
 		// TODO Auto-generated method stub
 	}
 
@@ -70,22 +72,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 	}
 
 	@Override
-	public void AddSaldo(String correo, String moneda, Double newSaldo) {
-		EntityManager em = EMFService.get().createEntityManager();
-		Cliente cliente = null;
-		try{
-			cliente= (Cliente) em.createQuery("select t from Cliente t where t.correo = :correo").setParameter("correo", correo).getSingleResult();
-			cliente.addSaldo(moneda, newSaldo);
-			em.merge(cliente);
-		}
-		catch (Exception e) { 
-			System.out.println("No encuentra cliente para saldo");  
-		}
-		em.close();
-		// TODO Auto-generated method stub
-
-	}
-	@Override
 	public void editarCliente(String correo, String nombre, String pais, int notificaciones) {
 		EntityManager em = EMFService.get().createEntityManager();
 		Cliente cliente = null;
@@ -124,5 +110,11 @@ public class ClienteDAOImpl implements ClienteDAO {
 		}
 		em.close();
 
+	}
+	@Override
+	public void update(Cliente cliente) {
+		EntityManager em = EMFService.get().createEntityManager();
+		em.merge(cliente);
+		em.close();	
 	}
 }

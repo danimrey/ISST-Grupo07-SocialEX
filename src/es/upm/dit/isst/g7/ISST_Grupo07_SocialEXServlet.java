@@ -15,8 +15,11 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 import es.upm.dit.isst.g7.dao.ClienteDAO;
 import es.upm.dit.isst.g7.dao.ClienteDAOImpl;
+import es.upm.dit.isst.g7.dao.CuentaDAO;
+import es.upm.dit.isst.g7.dao.CuentaDAOImpl;
 import es.upm.dit.isst.g7.dao.TransaccionDAO;
 import es.upm.dit.isst.g7.dao.TransaccionDAOImpl;
+import es.upm.dit.isst.model.Cuenta;
 import es.upm.dit.isst.model.Transaccion;
 import es.upm.dit.isst.model.Transaccion.Tipo;
 
@@ -24,6 +27,24 @@ import es.upm.dit.isst.model.Transaccion.Tipo;
 public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
+		
+		/*ClienteDAO dao1 = ClienteDAOImpl.getInstance();
+		TransaccionDAO dao3 = TransaccionDAOImpl.getInstance();
+		//CuentaDAO dao2 = new CuentaDAOImpl();
+		System.out.println("size:" +dao1.GetAllClientes().size());
+		Tipo tipo = null;
+		dao3.createTransaccion("a", "a", "a", "a", 0.0, "a", tipo.CAMBIO_DIVISAS);
+		System.out.println("t: "+dao3.getAllTransacciones().size());
+		
+		CuentaDAO dao2 = CuentaDAOImpl.getInstance();
+		dao2.Create("a@a.com", "España", "Euro", "123456", "pepe", "1/1/2020");
+		System.out.println("size:" +dao2.GetAllCuentas().size());
+		//dao1.Create("b@a.com", "b@a.com", "España", 0);
+		/*Tipo tipo = null;
+		dao3.createTransaccion("a", "a", "a", "a", 0.0, "a", tipo.CAMBIO_DIVISAS);
+		System.out.println("t: "+dao3.getAllTransacciones().size());
+		dao2.Create("a@a.com", "España", "Euro", "123456");
+		System.out.println("size:" +dao2.GetAllCuentas().size());
 		/*
 		resp.setContentType("text/plain");
 		resp.getWriter().println("Hello, world");
@@ -49,6 +70,7 @@ public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 			resp.getWriter().println(cliente.getSaldo());
 		}
 		*/
+		
 		//Control de usuarios. Solo cuentas de Google
 		UserService userService = UserServiceFactory.getUserService();
 		String url = userService.createLoginURL(req.getRequestURI()); 
@@ -88,21 +110,25 @@ public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 				}
 				req.getSession().setAttribute("notificaciones", notifString);
 				
+				CuentaDAO daoCuentas = CuentaDAOImpl.getInstance();
+				req.getSession().setAttribute("tarjeta", daoCuentas.GetCuentabyCliente(user).get(0).getNumeroCuenta());
+				
 				//Muestra saldo de divisas
-				Double saldoEUR = dao.GetClientebyCorreo(user).getSaldo("EUR");
+				Double saldoEUR = daoCuentas.GetCuentabyCliente(user).get(0).getSaldo("EUR");
 				req.getSession().setAttribute("saldoEUR", saldoEUR);
 				
-				Double saldoDOL = dao.GetClientebyCorreo(user).getSaldo("USD");
+				Double saldoDOL = daoCuentas.GetCuentabyCliente(user).get(0).getSaldo("USD");
 				req.getSession().setAttribute("saldoDOL", saldoDOL);
 				
-				Double saldoGBP = dao.GetClientebyCorreo(user).getSaldo("GBP");
+				Double saldoGBP = daoCuentas.GetCuentabyCliente(user).get(0).getSaldo("GBP");
 				req.getSession().setAttribute("saldoGBP", saldoGBP);
 				
-				Double saldoJPY = dao.GetClientebyCorreo(user).getSaldo("JPY");
+				Double saldoJPY = daoCuentas.GetCuentabyCliente(user).get(0).getSaldo("JPY");
 				req.getSession().setAttribute("saldoJPY", saldoJPY);
 				
 				//Cargar transacciones
-				List<Transaccion> tran = dao2.getTransaccionesbyUser(user);
+				List<Transaccion> tran = dao2.getTransaccionesbyCuenta(daoCuentas.GetCuentabyCliente(user).get(0).getNumeroCuenta());
+				System.out.println("tran: "+tran.size());
 				req.getSession().setAttribute("transacciones", new ArrayList<Transaccion>(tran));
 				//tran.get(0).getFecha();
 				//Carga perfil
@@ -121,4 +147,10 @@ public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 			view.forward(req, resp);
 		}
 	}
+
+	private ClienteDAO ClienteDAOImpl() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

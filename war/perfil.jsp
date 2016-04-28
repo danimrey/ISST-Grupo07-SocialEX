@@ -60,10 +60,10 @@
 							<p><b>Nombre: </b><c:out value="${cliente}" /></br>
 							<b>Correo (ID): </b><c:out value="${user}" /></br>
 							<b>País: </b><c:out value="${pais}" /></br>
-							<b>Notificaciones: </b><c:out value="${notificaciones}" /></p>
+							<b>Nº Tarjeta MassMoney : </b><c:out value="${tarjeta}" /></br>
+							<b>Notificaciones: </b><c:out value="${notificaciones}" /></br></p>
 							<p><a href="editarPerfil.jsp">Editar pefil</a></p>
-							
-								<h5>Movimientos de la cuenta</h5>
+							<h5>Movimientos de la cuenta</h5>
 								<div class="table-wrapper">
 								<c:if test="${not empty transacciones}">
 									<table class="alt">
@@ -72,8 +72,7 @@
 												<th>Fecha</th>
 												<th>Importe</th>
 												<th>Concepto</th>
-												<th>Moneda inicial</th>
-												<th>Moneda final</th>
+												<th>Divisa</th>
 												<th>Tipo</th>
 											</tr>
 										</thead>
@@ -81,13 +80,11 @@
 											<c:forEach items="${transacciones}" var="tran">
 												<tr>
 													<td><c:out value="${tran.fechaCliente}" /></td>
-													<td><c:out value="${tran.dinero}" /></td>
+													<td><c:out value="${tran.importe}" /></td>
 													<td><c:out value="${tran.concepto}" /></td>
-													<td><c:out value="${tran.monedaIncial}" /></td>
-													<td><c:out value="${tran.monedaFinal}" /></td>
+													<td><c:out value="${tran.divisa}" /></td>
 													<td><c:out value="${tran.tipo}" /></td>
-													
-													
+														
 												</tr>
 											</c:forEach> 	
 										</tbody>
@@ -97,6 +94,7 @@
 									<p>Aquí aparecerán sus transacciones.</p>
 									</c:if>
 								</div>
+						
 								<h5>Saldo de divisas</h5>
 								<div class="table-wrapper">
 									<table class="alt">
@@ -145,27 +143,27 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td>Euros/Euros</td>
+													<td>Euro/Euro</td>
 													<td>1.0</td>
-													<td>Euros/Euros</td>
+													<td>Euro/Euro</td>
 													<td>1.0</td>
 												</tr>
 												<tr>
-													<td>Euros/Dolares americanos</td>
+													<td>Euro/Dólar estadounidense</td>
 													<td><pa id="EUR/USD"></a></td>
-													<td>Dolares americanos/Euros</td>
+													<td>Dólar estadounidense/Euro</td>
 													<td><pa id="USD/EUR"></a></td>
 												</tr>
 												<tr>
-													<td>Euros/Libras esterlinas</td>
+													<td>Euro/Libra esterlina</td>
 													<td><pa id="EUR/GBP"></a></td>
-													<td>Libras esterlinas/Euros</td>
+													<td>Libra esterlina/Euro</td>
 													<td><pa id="GBP/EUR"></a></td>
 												</tr>
 												<tr>
-													<td>Euros/Yen japonés</td>
+													<td>Euro/Yen japonés</td>
 													<td><pa id="EUR/JPY"></a></td>
-													<td>Yen japonés/Euros</td>
+													<td>Yen japonés/Euro</td>
 													<td><pa id="JPY/EUR"></a></td>
 												</tr>
 											</tbody>

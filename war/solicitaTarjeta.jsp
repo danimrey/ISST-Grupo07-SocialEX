@@ -50,19 +50,39 @@
 								<h4>Nueva Tarjeta</h4>
 								<p>Ha accedido con su cuenta de Google. Para usar los servicios de MassMoney es necesario que solicte una tarjeta.</p>
 									<form method="post" action="/nuevoCliente">
+										<p></br><strong>Información de cliente</strong></p>
 										<div class="row uniform">
 											<div class="6u 12u$(xsmall)">
-												<input type="text" name="nombre" id="nombre" value="" placeholder="Nombre" />
+												<input type="text" name="nombre" id="nombre" value="" required placeholder="Nombre" />
 											</div>
 											<div class="6u 12u$(xsmall)">
-												<input type="text" name="apellidos" id="apellidos" value="" placeholder="Apellidos" />
+												<input type="text" name="apellidos" id="apellidos" value="" required placeholder="Apellidos" />
 											</div>
 											<div class="6u$ 12u$(xsmall)">
-												<input type="text" name="pais" id="pais" value="" placeholder="Pais" />
+												<input type="text" name="pais" id="pais" value="" required placeholder="Pais" />
 											</div>
 											<div class="6u 12u$(small)">
 												<input type="checkbox" id="notificaciones" name="notificaciones">
 												<label for="notificaciones">Enviar notificaciones al correo</label>
+											</div>
+											<div class="12u$">
+											<p></br><strong>Información de facturación necesario para solicitar tarjeta.</strong></p>
+											<p>Registre una tarjeta de crédito o debito.</p>
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="titularTarjeta" id="titularTarjeta" value="" required placeholder="Titular de la tarjeta" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="tarjeta" id="tarjeta" value="" required placeholder="Nº de tarjeta" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="caducidadTarjeta" id="caducidadTarjeta" value="" required placeholder="Fecha de caducidad" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="divisaTarjeta" id="divisaTarjeta" value="" required placeholder="Divisa de tarjeta" />
+											</div>
+											<div class="6u$ 12u$(xsmall)">
+												<input type="text" name="paisTarjeta" id="paisTarjeta" value="" required placeholder="Pais de la tarjeta" />
 											</div>
 											<div class="12u$">
 												<ul class="actions">

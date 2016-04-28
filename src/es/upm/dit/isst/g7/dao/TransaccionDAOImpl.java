@@ -20,15 +20,17 @@ public class TransaccionDAOImpl implements TransaccionDAO {
 			instance  = new  TransaccionDAOImpl( ) ;
 		return instance;  
 	}
+	
 	@Override
-	public void createTransaccion(String cliente, String fechaCliente,
-			String monedaIncial, String monedaFinal, Double dinero,
-			String concepto, Tipo tipo) {
+	public Transaccion createTransaccion(Long cuentaAsociada,String fechaCliente, String divisa,
+			Double importe, String concepto, Tipo tipo) {
 		
 		EntityManager em1 = EMFService.get().createEntityManager();
-		Transaccion tra = new Transaccion(cliente,fechaCliente, monedaIncial, monedaFinal, dinero, concepto, tipo);
+		Transaccion tra = new Transaccion(cuentaAsociada, fechaCliente, divisa,
+				importe, concepto, tipo);
 		em1.persist(tra);
 		em1.close();
+		return tra;
 		
 	}
 	
@@ -41,17 +43,25 @@ public class TransaccionDAOImpl implements TransaccionDAO {
 	}
 	
 	@Override
-	public List<Transaccion> getTransaccionesbyUser(String user) {
+	public List<Transaccion> getTransaccionesbyCuenta(Long cuentaAsociada) {
 		EntityManager em1 = EMFService.get().createEntityManager();
 		List<Transaccion> todasTransacciones = new ArrayList<Transaccion>();
 		try{
-			todasTransacciones = em1.createQuery("select t from Transaccion t where t.cliente = :cliente").setParameter("cliente", user).getResultList();
+			todasTransacciones = (List<Transaccion>) em1.createQuery("select t from Transaccion t where t.cuentaAsociada = :cuentaAsociada").setParameter("cuentaAsociada", cuentaAsociada).getResultList();
 			
 		}catch(Exception e){
 			System.out.println("Error en getTransaccionesbyUser");
 		}
 		em1.close();
 		return todasTransacciones;	
+	}
+	@Override
+	public void update(Transaccion transaccion) {
+		// TODO Auto-generated method stub
+		EntityManager em1 = EMFService.get().createEntityManager();
+		em1.merge(transaccion);
+		em1.close();
+		
 	}
 
 }

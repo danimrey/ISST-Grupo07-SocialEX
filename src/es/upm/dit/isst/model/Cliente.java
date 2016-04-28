@@ -15,36 +15,38 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
 public class Cliente implements Serializable {
-	String nombre = "";
 	@Id
-	String correo = "";
-	String pais = "";
-	String fechaCreacion = "";
-	int notificaciones;
+	private String correo = "";
+	private String nombre = "";
+	private String apellidos = "";
+	private String pais = "";
+	private String fechaCreacion = "";
+	private int notificaciones;
 	//Inicialmente 4 monedas. Posibilidad de ampliacion
 	//Se pone EAGER porque esta configurado por defecto como LAZY
 	@ManyToMany(fetch=FetchType.EAGER) 
-	Map<String, Double> saldo = new HashMap<String, Double>();
+	private List<Long> cuentas;
+	@ManyToMany(fetch=FetchType.EAGER) 
+	private List<String> amigos;
 	
-	public Cliente(String nombre, String correo, String pais, int notificaciones) {
+	public Cliente(String nombre,String apellidos, String correo, String pais, int notificaciones) {
 		super();
 		this.nombre = nombre;
+		this.apellidos = apellidos;
 		this.correo = correo;
 		this.pais = pais;
 		this.notificaciones = notificaciones;
-		//4 monedas iniciales
-		this.saldo.put("EUR", 0.0);
-		this.saldo.put("GBP", 0.0);
-		this.saldo.put("USD", 0.0);
-		this.saldo.put("JPY", 0.0);
 		
 		Calendar hoy = Calendar.getInstance();
 		SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		String formatted = format1.format(hoy.getTime());
 		this.fechaCreacion = formatted;
+		this.cuentas = new ArrayList<Long>();
+		this.amigos = new ArrayList<String>();
 	}
 
 	public String getNombre() {
@@ -79,20 +81,27 @@ public class Cliente implements Serializable {
 		this.notificaciones = notificaciones;
 	}
 
-	public Map<String, Double> getSaldo() {
-		return this.saldo;
-	}
-	
-	public Double getSaldo(String moneda) {
-		return this.saldo.get(moneda);
+	public String getApellidos() {
+		return apellidos;
 	}
 
-	public void setNewModeda(Map<String, Double> moneda) {
-		this.saldo = saldo;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public List<Long> getCuentas() {
+		return cuentas;
+	}
+
+
+	public List<String> getAmigos() {
+		return amigos;
 	}
 	
-	public void addSaldo(String moneda, Double cantidad) {
-		Double oldSaldo = this.saldo.get(moneda);
-		saldo.put(moneda, oldSaldo+cantidad);
+	public void setCuenta(Long cuenta){
+		this.cuentas.add(cuenta);
+	}
+	public void setAmigos(List<String> amigos) {
+		this.amigos = amigos;
 	}
 }

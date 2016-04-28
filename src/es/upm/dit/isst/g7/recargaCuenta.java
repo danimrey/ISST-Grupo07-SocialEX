@@ -19,8 +19,12 @@ import java.util.Properties;
 
 import es.upm.dit.isst.g7.dao.ClienteDAO;
 import es.upm.dit.isst.g7.dao.ClienteDAOImpl;
+import es.upm.dit.isst.g7.dao.CuentaDAO;
+import es.upm.dit.isst.g7.dao.CuentaDAOImpl;
 import es.upm.dit.isst.g7.dao.TransaccionDAO;
 import es.upm.dit.isst.g7.dao.TransaccionDAOImpl;
+import es.upm.dit.isst.model.Cuenta;
+import es.upm.dit.isst.model.Transaccion;
 import es.upm.dit.isst.model.Transaccion.Tipo;
 
 @SuppressWarnings("serial")
@@ -36,6 +40,8 @@ public class recargaCuenta extends HttpServlet {
 		String divisa = req.getParameter("divisas"); //divisas
 		String importe = req.getParameter("cantidadRecarga");
 		String fechaCliente = req.getParameter("localTime");
+		String numeroCuenta = req.getParameter("numeroCuenta");
+		System.out.println("nCeunta: "+numeroCuenta);
 	    System.out.println("Local time: "+fechaCliente);
 		
 		if (importe.isEmpty()) {
@@ -50,11 +56,15 @@ public class recargaCuenta extends HttpServlet {
 			System.out.println(user);
 			System.out.println(value);
 			ClienteDAO dao = ClienteDAOImpl.getInstance();
-			dao.AddSaldo(user, divisa, value);
+			CuentaDAO daoCuenta = CuentaDAOImpl.getInstance();
+			Long numeroTarjeta = Long.parseLong(numeroCuenta, 10);
+			Cuenta cuenta = daoCuenta.GetCuenta(numeroTarjeta);
+			cuenta.addSaldo(divisa, value);
+			daoCuenta.update(cuenta);
 			
 			Tipo tipo = Tipo.INGRESAR;
 			TransaccionDAO dao2 = TransaccionDAOImpl.getInstance();
-			dao2.createTransaccion(user, fechaCliente, divisa, divisa, value, "Recarga de dinero", tipo);
+			Transaccion t = dao2.createTransaccion(numeroTarjeta, fechaCliente, divisa, value, "Recarga de dinero", tipo);
 			
 			try{
 				Message msg = new MimeMessage(Session.getDefaultInstance(new Properties(), null));

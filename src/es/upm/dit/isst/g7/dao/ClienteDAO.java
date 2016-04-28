@@ -7,7 +7,7 @@ import es.upm.dit.isst.model.Cliente;
 public interface ClienteDAO {
 	
 	//Crea un nuevo Cliente
-	public void Create(String nombre, String correo, String pais, int notificaciones);
+	public Cliente Create(String nombre,String apellidos, String correo, String pais, int notificaciones);
 	
 	//Devuelve Cliente por nombre
 	public Cliente GetClienteByNombre(String nombre);
@@ -16,8 +16,7 @@ public interface ClienteDAO {
 	//Devuelve cliente con correo
 	public Cliente GetClientebyCorreo(String correo);
 	
-	//Actualiza cliente
-	public void AddSaldo(String nombre,String moneda, Double newSaldo);
+	public void update(Cliente cliente);
 	
 	//Elimina cliente
 	public void Delete(String nombre);
