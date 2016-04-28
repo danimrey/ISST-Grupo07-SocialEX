@@ -33,9 +33,7 @@ public class editarPerfil extends HttpServlet {
              notificaciones = 1;
          }
          System.out.println("pais nuevo: "+pais);
-         
-     
-         
+             
          ClienteDAO dao = ClienteDAOImpl.getInstance();
          dao.editarCliente(user, nombre, pais, notificaciones);
         

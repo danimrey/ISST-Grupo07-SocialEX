@@ -130,7 +130,7 @@ public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 				List<Transaccion> tran = dao2.getTransaccionesbyCuenta(daoCuentas.GetCuentabyCliente(user).get(0).getNumeroCuenta());
 				System.out.println("tran: "+tran.size());
 				req.getSession().setAttribute("transacciones", new ArrayList<Transaccion>(tran));
-				//tran.get(0).getFecha();
+	
 				//Carga perfil
 				System.out.println("Carga perfil");
 				RequestDispatcher view = req.getRequestDispatcher("perfil.jsp") ;
