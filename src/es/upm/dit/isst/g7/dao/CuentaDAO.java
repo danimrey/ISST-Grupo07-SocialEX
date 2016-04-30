@@ -8,7 +8,8 @@ import es.upm.dit.isst.model.Cuenta;
 public interface CuentaDAO {
 	
 	public Cuenta Create(String cliente, String paisCuenta,
-			String divisaPredeterminada, String tarjetaAsociada, String titularTarjeta, String caducidadTarjeta );
+			String divisaPredeterminada, String tarjetaAsociada, String titularTarjeta, String caducidadTarjeta,
+			String direccion, String ciudad, String provincia, String codigoPostal, String codigoSecreto);
 	//Devuelve cuenta por nombre
 	public Cuenta GetCuenta(long id);
 	//Devuelve lista con todos las cuenta

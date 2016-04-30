@@ -18,9 +18,11 @@ public class CuentaDAOImpl implements CuentaDAO {
 	}
 	@Override
 	public Cuenta Create(String cliente, String paisCuenta,
-		String divisaPredeterminada, String tarjetaAsociada, String titularTarjeta, String caducidadTarjeta) {
+			String divisaPredeterminada, String tarjetaAsociada, String titularTarjeta, String caducidadTarjeta,
+			String direccion, String ciudad, String provincia, String codigoPostal, String codigoSecreto) {
 		EntityManager em2 = EMFService.get().createEntityManager();
-		Cuenta cuenta = new Cuenta(cliente, paisCuenta, divisaPredeterminada, tarjetaAsociada, titularTarjeta, caducidadTarjeta);
+		Cuenta cuenta = new Cuenta(cliente, paisCuenta, divisaPredeterminada, tarjetaAsociada, titularTarjeta, caducidadTarjeta,
+				direccion, ciudad, provincia, codigoPostal, codigoSecreto);
 		
 		em2.persist(cuenta);
 		em2.close();

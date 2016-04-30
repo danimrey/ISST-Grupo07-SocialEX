@@ -66,23 +66,42 @@
 												<label for="notificaciones">Enviar notificaciones al correo</label>
 											</div>
 											<div class="12u$">
-											<p></br><strong>Información de facturación necesario para solicitar tarjeta.</strong></p>
-											<p>Registre una tarjeta de crédito o debito.</p>
+											<p></br><strong>Añadir una tarjeta</strong></p>
+											<p>Dirección de faturación</p>
 											</div>
-											<div class="6u 12u$(xsmall)">
+											<div class="12u 12u$(xsmall)">
 												<input type="text" name="titularTarjeta" id="titularTarjeta" value="" required placeholder="Titular de la tarjeta" />
 											</div>
 											<div class="6u 12u$(xsmall)">
-												<input type="text" name="tarjeta" id="tarjeta" value="" required placeholder="Nº de tarjeta" />
+												<input type="text" name="direccion" id="direccion" value="" required placeholder="Dirección" />
 											</div>
 											<div class="6u 12u$(xsmall)">
-												<input type="text" name="caducidadTarjeta" id="caducidadTarjeta" value="" required placeholder="Fecha de caducidad" />
+												<input type="text" name="ciudad" id="ciudad" value="" required placeholder="Ciudad" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="provincia" id="provincia" value="" required placeholder="Provincia" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="codigoPostal" id="codigoPostal" value="" required placeholder="Código postal" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="paisTarjeta" id="paisTarjeta" value="" required placeholder="Pais de la tarjeta" />
 											</div>
 											<div class="6u 12u$(xsmall)">
 												<input type="text" name="divisaTarjeta" id="divisaTarjeta" value="" required placeholder="Divisa de tarjeta" />
 											</div>
-											<div class="6u$ 12u$(xsmall)">
-												<input type="text" name="paisTarjeta" id="paisTarjeta" value="" required placeholder="Pais de la tarjeta" />
+											<div class="12u$">
+											<p>Detalles de la tarjeta</p>
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="tarjeta" id="tarjeta" value="" required placeholder="Nº de tarjeta" />
+											</div>
+								
+											<div class="6u 12u$(xsmall)">
+												<input type="text" name="caducidadTarjeta" id="caducidadTarjeta" value="" required placeholder="Fecha de caducidad" />
+											</div>
+											<div class="6u 12u$(xsmall)">
+												<input type="password" name="codigoSecreto" id="codigoSecreto" value="" maxlength="3" required placeholder="Código secreto" />
 											</div>
 											<div class="12u$">
 												<ul class="actions">

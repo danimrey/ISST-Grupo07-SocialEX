@@ -38,6 +38,11 @@ public class nuevaTarjeta extends HttpServlet {
          String caducidadTarjeta = req.getParameter("caducidadTarjeta");
          String divisaTarjeta = req.getParameter("divisaTarjeta");
          String paisTarjeta = req.getParameter("paisTarjeta");
+         String direccion = req.getParameter("direccion");
+         String ciudad = req.getParameter("ciudad");
+         String provincia = req.getParameter("provincia");
+         String codigoPostal = req.getParameter("codigoPostal");
+         String codigoSecreto = req.getParameter("codigoSecreto");
        
          if(req.getParameter("notificaciones") == null){
              notificaciones = 0;
@@ -57,7 +62,8 @@ public class nuevaTarjeta extends HttpServlet {
         	 
         	 //Crea una nueva tarjeta
         	 CuentaDAO dao2 = CuentaDAOImpl.getInstance();
-        	 Cuenta cuenta = dao2.Create(user, paisTarjeta, divisaTarjeta, tarjeta, titularTarjeta, caducidadTarjeta);
+        	 Cuenta cuenta = dao2.Create(user, paisTarjeta, divisaTarjeta, tarjeta, titularTarjeta, 
+        			 caducidadTarjeta, direccion, ciudad, provincia, codigoPostal, codigoSecreto);
         	 cliente.setCuenta(cuenta.getNumeroCuenta());
         	 dao.update(cliente);
          }

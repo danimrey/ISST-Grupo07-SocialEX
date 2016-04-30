@@ -22,17 +22,24 @@ public class Cuenta implements Serializable {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
 	@Id Long id;
 	private String cliente = "";
-	private String paisCuenta = "";
 	private String divisaPredeterminada = "";
-	private String tarjetaAsociada = "";
+	//Información de tarjeta
 	private String titularTarjeta = "";
+	private String direccion = "";
+	private String ciudad = "";
+	private String provincia = "";
+	private String paisCuenta = "";
+	private String codigoPostal = "";
+	private String tarjetaAsociada = "";
 	private String caducidadTarjeta = "";
 	private String fechaCreacion = "";
+	private String codigoSecreto = "";
 	@OneToOne(fetch=FetchType.EAGER) 
 	private Map<String, Double> saldo = new HashMap<String, Double>();
 	
 	public Cuenta(String cliente, String paisCuenta,
-			String divisaPredeterminada, String tarjetaAsociada, String titularTarjeta, String caducidadTarjeta) {
+			String divisaPredeterminada, String tarjetaAsociada, String titularTarjeta, 
+			String caducidadTarjeta, String direccion, String ciudad, String provincia, String codigoPostal, String codigoSecreto) {
 		super();
 		this.cliente = cliente;
 		this.paisCuenta = paisCuenta;
@@ -51,6 +58,51 @@ public class Cuenta implements Serializable {
 		
 		this.caducidadTarjeta = caducidadTarjeta;
 		this.titularTarjeta = titularTarjeta;
+		this.direccion = direccion;
+		this.ciudad = ciudad;
+		this.provincia = provincia;
+		this.codigoPostal = codigoPostal;
+		this.codigoSecreto = codigoSecreto;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getCodigoSecreto() {
+		return codigoSecreto;
+	}
+
+	public void setCodigoSecreto(String codigoSecreto) {
+		this.codigoSecreto = codigoSecreto;
 	}
 
 	public void setCliente(String cliente) {
