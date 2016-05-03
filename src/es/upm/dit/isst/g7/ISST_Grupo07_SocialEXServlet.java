@@ -134,17 +134,17 @@ public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 				//Tarjetas
 				TarjetaDAO daoTarjetas = TarjetaDAOImpl.getInstance();
 				List<Tarjeta> todasTarjetas = (List<Tarjeta>) daoTarjetas.getTodasTarjetas();
-				List<String> numerosTarjeta = new ArrayList<String>();
+				List<Tarjeta> numerosTarjeta = new ArrayList<Tarjeta>();
 				
 				//Obten numero de tarjetas tarjetas
 				List<Long> listaTarjetas = daoCuentas.GetCuentabyCliente(user).getTarjetas();
 				System.out.println("Numero tarjetas: "+listaTarjetas.size());
 				System.out.println("Numero tarjetas cliente: "+numerosTarjeta.size());
 				for (int i = 0; i < listaTarjetas.size(); i++) {
-					numerosTarjeta.add(daoTarjetas.getTarjeta(listaTarjetas.get(i)).getNumeroTarjeta());
+					numerosTarjeta.add(daoTarjetas.getTarjeta(listaTarjetas.get(i)));
 				}
 				System.out.println("Numero tarjetas cliente: "+numerosTarjeta.size());
-				req.getSession().setAttribute("tarjetas", new ArrayList<Tarjeta>(todasTarjetas));
+				req.getSession().setAttribute("tarjetas", new ArrayList<Tarjeta>(numerosTarjeta));
 				
 				//Cargar transacciones
 				List<Transaccion> tran = dao2.getTransaccionesbyCuenta(daoCuentas.GetCuentabyCliente(user).getNumeroCuenta());

@@ -88,7 +88,14 @@
 												<input type="text" name="paisTarjeta" id="paisTarjeta" value="" required placeholder="Pais de la tarjeta" />
 											</div>
 											<div class="6u 12u$(xsmall)">
-												<input type="text" name="divisaTarjeta" id="divisaTarjeta" value="" required placeholder="Divisa de tarjeta" />
+												<div class="select-wrapper">
+													<select name="divisaTarjeta" id="divisaTarjeta">
+														<option value="EUR">Euro € (EUR)</option>
+														<option value="USD">Dólar estadounidense $ (USD)</option>
+														<option value="GBP">Libra esterlina £ (GBP)</option>
+														<option value="JPY">Yen japonés ¥ (JPY)</option>
+													</select>
+												</div>
 											</div>
 											<div class="12u$">
 											<p>Detalles de la tarjeta</p>
