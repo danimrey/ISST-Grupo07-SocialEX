@@ -27,17 +27,19 @@ public class Transaccion implements Serializable {
 	private String divisa = "";
 	private Double importe = 0.0;
 	private String concepto = "";
+	private String numeroTarjeta = "";
 	private Tipo tipo = Tipo.VACIO;
 	
 	public Transaccion(Long cuentaAsociada,String fechaCliente, String divisa,
-			Double importe, String concepto, Tipo tipo) {
+			Double importe, String concepto, Tipo tipo, String numeroTarjeta) {
 		super();
 		this.cuentaAsociada = cuentaAsociada;
 		this.divisa = divisa;
 		this.importe = importe;
 		this.concepto = concepto;
 		this.tipo = tipo;
-		this.fechaCliente = fechaCliente; 
+		this.fechaCliente = fechaCliente;
+		this.numeroTarjeta = numeroTarjeta;
 		
 		//Fecha automatica
 		Calendar hoy = Calendar.getInstance();

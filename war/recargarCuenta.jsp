@@ -60,6 +60,7 @@
 												<input type="text" name="cantidadRecarga" id="cantidadRecarga" value="" placeholder="Cantidad a recargar" min="1" />
 												<input type="hidden" name="localTime" id="localTime" value=""/>
 												<input type="hidden" name="numeroCuenta" id="numeroCuenta" value=<c:out value="${tarjeta}"/> />
+												
                                     				<script type="text/javascript">
                                       					 var now = new Date(); 
                                       					 var weekday = new Array(7);
@@ -76,7 +77,7 @@
                                    					</script>
 											</div>
 											
-											<div class="12u$">
+											<div class="6u">
 												<div class="select-wrapper">
 													<select name="divisas" id="divisa">
 														<option value="EUR">Euro € (EUR)</option>
@@ -84,6 +85,20 @@
 														<option value="GBP">Libra esterlina £ (GBP)</option>
 														<option value="JPY">Yen japonés ¥ (JPY)</option>
 													</select>
+												</div>
+											</div>
+											<div class="12u">
+												<p>Seleccione tarjeta:</p>
+											</div>
+											<div class="6u">
+												<div class="select-wrapper">
+												<c:if test="${not empty tarjetas}">
+													<select name="tarjetas" id="tarjeta">
+														<c:forEach items="${tarjetas}" var="tarjetai">
+															<option value=<c:out value="${tarjetai.id}"/>><c:out value="${tarjetai.numeroTarjeta}"/></option>
+														</c:forEach>
+													</select>
+												</c:if>
 												</div>
 											</div>
 											

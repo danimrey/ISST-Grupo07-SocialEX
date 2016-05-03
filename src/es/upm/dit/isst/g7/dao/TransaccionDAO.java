@@ -10,7 +10,7 @@ import es.upm.dit.isst.model.Transaccion.Tipo;
 public interface TransaccionDAO {
 	
 	public Transaccion createTransaccion(Long cuentaAsociada, String fechaCliente, String divisa,
-			Double importe, String concepto, Tipo tipo);
+			Double importe, String concepto, Tipo tipo, String numeroTarjeta);
 
 	public List<Transaccion> getAllTransacciones();
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,9 +18,12 @@ import es.upm.dit.isst.g7.dao.ClienteDAO;
 import es.upm.dit.isst.g7.dao.ClienteDAOImpl;
 import es.upm.dit.isst.g7.dao.CuentaDAO;
 import es.upm.dit.isst.g7.dao.CuentaDAOImpl;
+import es.upm.dit.isst.g7.dao.TarjetaDAO;
+import es.upm.dit.isst.g7.dao.TarjetaDAOImpl;
 import es.upm.dit.isst.g7.dao.TransaccionDAO;
 import es.upm.dit.isst.g7.dao.TransaccionDAOImpl;
 import es.upm.dit.isst.model.Cuenta;
+import es.upm.dit.isst.model.Tarjeta;
 import es.upm.dit.isst.model.Transaccion;
 import es.upm.dit.isst.model.Transaccion.Tipo;
 
@@ -111,25 +115,43 @@ public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 				req.getSession().setAttribute("notificaciones", notifString);
 				
 				CuentaDAO daoCuentas = CuentaDAOImpl.getInstance();
-				req.getSession().setAttribute("tarjeta", daoCuentas.GetCuentabyCliente(user).get(0).getNumeroCuenta());
+				req.getSession().setAttribute("tarjeta", daoCuentas.GetCuentabyCliente(user).getNumeroCuenta());
 				
 				//Muestra saldo de divisas
-				Double saldoEUR = daoCuentas.GetCuentabyCliente(user).get(0).getSaldo("EUR");
+				Double saldoEUR = daoCuentas.GetCuentabyCliente(user).getSaldo("EUR");
 				req.getSession().setAttribute("saldoEUR", saldoEUR);
 				
-				Double saldoDOL = daoCuentas.GetCuentabyCliente(user).get(0).getSaldo("USD");
+				Double saldoDOL = daoCuentas.GetCuentabyCliente(user).getSaldo("USD");
 				req.getSession().setAttribute("saldoDOL", saldoDOL);
 				
-				Double saldoGBP = daoCuentas.GetCuentabyCliente(user).get(0).getSaldo("GBP");
+				Double saldoGBP = daoCuentas.GetCuentabyCliente(user).getSaldo("GBP");
 				req.getSession().setAttribute("saldoGBP", saldoGBP);
 				
-				Double saldoJPY = daoCuentas.GetCuentabyCliente(user).get(0).getSaldo("JPY");
+				Double saldoJPY = daoCuentas.GetCuentabyCliente(user).getSaldo("JPY");
 				req.getSession().setAttribute("saldoJPY", saldoJPY);
 				
+				
+				//Tarjetas
+				TarjetaDAO daoTarjetas = TarjetaDAOImpl.getInstance();
+				List<Tarjeta> todasTarjetas = (List<Tarjeta>) daoTarjetas.getTodasTarjetas();
+				List<String> numerosTarjeta = new ArrayList<String>();
+				
+				//Obten numero de tarjetas tarjetas
+				List<Long> listaTarjetas = daoCuentas.GetCuentabyCliente(user).getTarjetas();
+				System.out.println("Numero tarjetas: "+listaTarjetas.size());
+				System.out.println("Numero tarjetas cliente: "+numerosTarjeta.size());
+				for (int i = 0; i < listaTarjetas.size(); i++) {
+					numerosTarjeta.add(daoTarjetas.getTarjeta(listaTarjetas.get(i)).getNumeroTarjeta());
+				}
+				System.out.println("Numero tarjetas cliente: "+numerosTarjeta.size());
+				req.getSession().setAttribute("tarjetas", new ArrayList<Tarjeta>(todasTarjetas));
+				
 				//Cargar transacciones
-				List<Transaccion> tran = dao2.getTransaccionesbyCuenta(daoCuentas.GetCuentabyCliente(user).get(0).getNumeroCuenta());
+				List<Transaccion> tran = dao2.getTransaccionesbyCuenta(daoCuentas.GetCuentabyCliente(user).getNumeroCuenta());
 				System.out.println("tran: "+tran.size());
+				System.out.println("Numero de cuenta: "+daoCuentas.GetCuentabyCliente(user).getNumeroCuenta());
 				req.getSession().setAttribute("transacciones", new ArrayList<Transaccion>(tran));
+			
 	
 				//Carga perfil
 				System.out.println("Carga perfil");

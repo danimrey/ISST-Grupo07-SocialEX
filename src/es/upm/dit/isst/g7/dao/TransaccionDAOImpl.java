@@ -23,11 +23,11 @@ public class TransaccionDAOImpl implements TransaccionDAO {
 	
 	@Override
 	public Transaccion createTransaccion(Long cuentaAsociada,String fechaCliente, String divisa,
-			Double importe, String concepto, Tipo tipo) {
+			Double importe, String concepto, Tipo tipo, String numeroTarjeta) {
 		
 		EntityManager em1 = EMFService.get().createEntityManager();
 		Transaccion tra = new Transaccion(cuentaAsociada, fechaCliente, divisa,
-				importe, concepto, tipo);
+				importe, concepto, tipo, numeroTarjeta);
 		em1.persist(tra);
 		em1.close();
 		return tra;
@@ -48,6 +48,7 @@ public class TransaccionDAOImpl implements TransaccionDAO {
 		List<Transaccion> todasTransacciones = new ArrayList<Transaccion>();
 		try{
 			todasTransacciones = (List<Transaccion>) em1.createQuery("select t from Transaccion t where t.cuentaAsociada = :cuentaAsociada").setParameter("cuentaAsociada", cuentaAsociada).getResultList();
+			System.out.println("test: "+todasTransacciones.size());
 			
 		}catch(Exception e){
 			System.out.println("Error en getTransaccionesbyUser");

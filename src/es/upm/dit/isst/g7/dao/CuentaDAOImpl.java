@@ -17,13 +17,9 @@ public class CuentaDAOImpl implements CuentaDAO {
 		return instance;  
 	}
 	@Override
-	public Cuenta Create(String cliente, String paisCuenta,
-			String divisaPredeterminada, String tarjetaAsociada, String titularTarjeta, String caducidadTarjeta,
-			String direccion, String ciudad, String provincia, String codigoPostal, String codigoSecreto) {
+	public Cuenta Create(String cliente, String paisCuenta, String divisaPredeterminada) {
 		EntityManager em2 = EMFService.get().createEntityManager();
-		Cuenta cuenta = new Cuenta(cliente, paisCuenta, divisaPredeterminada, tarjetaAsociada, titularTarjeta, caducidadTarjeta,
-				direccion, ciudad, provincia, codigoPostal, codigoSecreto);
-		
+		Cuenta cuenta = new Cuenta(cliente, paisCuenta, divisaPredeterminada);
 		em2.persist(cuenta);
 		em2.close();
 		return cuenta;
@@ -64,19 +60,19 @@ public class CuentaDAOImpl implements CuentaDAO {
 	}
 
 	@Override
-	public List<Cuenta> GetCuentabyCliente(String cliente) {
+	public Cuenta GetCuentabyCliente(String cliente) {
 		EntityManager em = EMFService.get().createEntityManager();
-		List<Cuenta> cuentas = new ArrayList<Cuenta>();
+		Cuenta cuenta = null;
 		//Intenta buscar TFG por nombre de autor.
 		//Si no lo encuentra devuelve null.
 		try{
-			cuentas= (List<Cuenta>) em.createQuery("select t from Cuenta t where t.cliente = :cliente").setParameter("cliente", cliente).getResultList();
+			cuenta= (Cuenta) em.createQuery("select t from Cuenta t where t.cliente = :cliente").setParameter("cliente", cliente).getSingleResult();
 		}
 		catch (Exception e) { 
 			System.out.println("No encuentra cuenta por correo cliente");  
 		}
 		em.close();
-		return cuentas;
+		return cuenta;
 	}
 
 	@Override

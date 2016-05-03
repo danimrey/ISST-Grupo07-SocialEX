@@ -41,8 +41,12 @@ public class recargaCuenta extends HttpServlet {
 		String importe = req.getParameter("cantidadRecarga");
 		String fechaCliente = req.getParameter("localTime");
 		String numeroCuenta = req.getParameter("numeroCuenta");
-		System.out.println("nCeunta: "+numeroCuenta);
+		System.out.println("nCuenta: "+numeroCuenta);
 	    System.out.println("Local time: "+fechaCliente);
+	    String num = req.getParameter("tarjetas");
+	    System.out.println("num: "+num);
+	    Long numeroTarjeta = Long.parseLong(num, 10);
+	    System.out.println("parselong: "+numeroTarjeta);
 		
 		if (importe.isEmpty()) {
 			System.out.println("Importe vacío. Vuelve a la página principal");
@@ -57,14 +61,14 @@ public class recargaCuenta extends HttpServlet {
 			System.out.println(value);
 			ClienteDAO dao = ClienteDAOImpl.getInstance();
 			CuentaDAO daoCuenta = CuentaDAOImpl.getInstance();
-			Long numeroTarjeta = Long.parseLong(numeroCuenta, 10);
-			Cuenta cuenta = daoCuenta.GetCuenta(numeroTarjeta);
+			Long numeroCuentaLong = Long.parseLong(numeroCuenta, 10);
+			Cuenta cuenta = daoCuenta.GetCuenta(numeroCuentaLong);
 			cuenta.addSaldo(divisa, value);
 			daoCuenta.update(cuenta);
 			
 			Tipo tipo = Tipo.INGRESAR;
 			TransaccionDAO dao2 = TransaccionDAOImpl.getInstance();
-			Transaccion t = dao2.createTransaccion(numeroTarjeta, fechaCliente, divisa, value, "Recarga de dinero", tipo);
+			Transaccion t = dao2.createTransaccion(numeroCuentaLong, fechaCliente, divisa, value, "Recarga de dinero", tipo, num);
 			
 			try{
 				Message msg = new MimeMessage(Session.getDefaultInstance(new Properties(), null));

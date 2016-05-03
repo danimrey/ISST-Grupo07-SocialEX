@@ -60,7 +60,8 @@
 							<p><b>Nombre: </b><c:out value="${cliente}" /></br>
 							<b>Correo (ID): </b><c:out value="${user}" /></br>
 							<b>País: </b><c:out value="${pais}" /></br>
-							<b>Nº Tarjeta MassMoney : </b><c:out value="${tarjeta}" /></br>
+							<b>Nº Cuenta MassMoney : </b><c:out value="${tarjeta}" /></br>
+							<b>Tarjeta asociada principal : </b><c:out value="${tarjetas[0].numeroTarjeta}" /></br>
 							<b>Notificaciones: </b><c:out value="${notificaciones}" /></br></p>
 							<p><a href="editarPerfil.jsp">Editar pefil</a></p>
 							<h5>Movimientos de la cuenta</h5>
@@ -74,6 +75,7 @@
 												<th>Concepto</th>
 												<th>Divisa</th>
 												<th>Tipo</th>
+												<th>Tarjeta</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -84,7 +86,7 @@
 													<td><c:out value="${tran.concepto}" /></td>
 													<td><c:out value="${tran.divisa}" /></td>
 													<td><c:out value="${tran.tipo}" /></td>
-														
+													<td><c:out value="${tarjetas[0].numeroTarjeta}" /></td>
 												</tr>
 											</c:forEach> 	
 										</tbody>

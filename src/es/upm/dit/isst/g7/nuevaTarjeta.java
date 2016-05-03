@@ -14,10 +14,13 @@ import es.upm.dit.isst.g7.dao.ClienteDAO;
 import es.upm.dit.isst.g7.dao.ClienteDAOImpl;
 import es.upm.dit.isst.g7.dao.CuentaDAO;
 import es.upm.dit.isst.g7.dao.CuentaDAOImpl;
+import es.upm.dit.isst.g7.dao.TarjetaDAO;
+import es.upm.dit.isst.g7.dao.TarjetaDAOImpl;
 import es.upm.dit.isst.g7.dao.TransaccionDAO;
 import es.upm.dit.isst.g7.dao.TransaccionDAOImpl;
 import es.upm.dit.isst.model.Cliente;
 import es.upm.dit.isst.model.Cuenta;
+import es.upm.dit.isst.model.Tarjeta;
 
 @SuppressWarnings("serial")
 public class nuevaTarjeta extends HttpServlet {
@@ -60,12 +63,21 @@ public class nuevaTarjeta extends HttpServlet {
         	 ClienteDAO dao = ClienteDAOImpl.getInstance();
         	 Cliente cliente = dao.Create(nombre,apellidos, user, pais, notificaciones);
         	 
-        	 //Crea una nueva tarjeta
+        	 //Nueva tarjeta
+        	 TarjetaDAO daoTarjeta = TarjetaDAOImpl.getInstance();
+        	 Tarjeta nuevaTarjeta = daoTarjeta.Create(titularTarjeta, direccion, ciudad, provincia, pais, codigoPostal, tarjeta, caducidadTarjeta, codigoSecreto);
+        	 
+        	//Crea una nueva cuenta
         	 CuentaDAO dao2 = CuentaDAOImpl.getInstance();
-        	 Cuenta cuenta = dao2.Create(user, paisTarjeta, divisaTarjeta, tarjeta, titularTarjeta, 
-        			 caducidadTarjeta, direccion, ciudad, provincia, codigoPostal, codigoSecreto);
+        	 Cuenta cuenta = dao2.Create(user, paisTarjeta, divisaTarjeta);
+        	 //Añade cuenta al cliente
         	 cliente.setCuenta(cuenta.getNumeroCuenta());
+        	 //Añade tarjeta a la cuenta
+        	 cuenta.addTarjeta(nuevaTarjeta.getId());
+        	 dao2.update(cuenta);
         	 dao.update(cliente);
+        	 
+        	 
          }
          resp.sendRedirect("/isst_grupo07_socialex");
 	}
