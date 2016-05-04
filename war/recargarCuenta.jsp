@@ -78,12 +78,21 @@
                                        					 document.getElementById("localTime").value = nowFormatted;
                                    					</script>
 											</div>
-											
 											<div class="6u">
 												<div class="select-wrapper">
+						
 													<select name="divisas" id="divisa">
-													<c:if test="${cuenta.divisaPredeterminada==EUR}">
+													<c:if test="${cuenta.divisaPredeterminada=='EUR'}">
 														<option value="EUR">Euro € (EUR)</option>
+													</c:if>
+													<c:if test="${cuenta.divisaPredeterminada=='USD'}">
+														<option value="USD">Dólar estadounidense $ (USD)</option>
+													</c:if>
+													<c:if test="${cuenta.divisaPredeterminada=='GBP'}">
+														<option value="GBP">Libra esterlina £ (GBP)</option>
+													</c:if>
+													<c:if test="${cuenta.divisaPredeterminada=='JPY'}">
+														<option value="JPY">Yen japonés ¥ (JPY)</option>
 													</c:if>
 														<%-- 
 														<option value="USD">Dólar estadounidense $ (USD)</option>
