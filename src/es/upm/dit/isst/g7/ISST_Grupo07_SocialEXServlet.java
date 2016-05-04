@@ -117,6 +117,8 @@ public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 				CuentaDAO daoCuentas = CuentaDAOImpl.getInstance();
 				req.getSession().setAttribute("tarjeta", daoCuentas.GetCuentabyCliente(user).getNumeroCuenta());
 				
+				//Cuenta
+				req.getSession().setAttribute("cuenta", daoCuentas.GetCuentabyCliente(user));
 				//Muestra saldo de divisas
 				Double saldoEUR = daoCuentas.GetCuentabyCliente(user).getSaldo("EUR");
 				req.getSession().setAttribute("saldoEUR", saldoEUR);

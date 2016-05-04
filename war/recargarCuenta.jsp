@@ -54,6 +54,8 @@
 						<section class="wrapper style5">
 							<div class="inner">
 								<h4>Recarga de saldo</h4>
+								<p>Ingrese dinero en su divisa predeterminada. 
+								Para otras divisas solocite cambio de divisas.</p>
 									<form method="post" action="/recargaCuenta">
 										<div class="row uniform">
 											<div class="6u 12u$(xsmall)">
@@ -80,10 +82,14 @@
 											<div class="6u">
 												<div class="select-wrapper">
 													<select name="divisas" id="divisa">
+													<c:if test="${cuenta.divisaPredeterminada==EUR}">
 														<option value="EUR">Euro € (EUR)</option>
+													</c:if>
+														<%-- 
 														<option value="USD">Dólar estadounidense $ (USD)</option>
 														<option value="GBP">Libra esterlina £ (GBP)</option>
 														<option value="JPY">Yen japonés ¥ (JPY)</option>
+														--%>
 													</select>
 												</div>
 											</div>
