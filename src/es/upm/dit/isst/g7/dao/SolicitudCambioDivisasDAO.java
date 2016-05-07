@@ -14,6 +14,9 @@ public interface SolicitudCambioDivisasDAO {
 	//Devuelve todas las solcitudes de cambio
 	public List<SolicitudCambioDivisas> readAll();
 	
+	//Devuelve todas las solcitudes de cambio
+	public SolicitudCambioDivisas read(Long id);
+	
 	//Devuelve solicitudes de cambio por cuenta asociada
 	public List<SolicitudCambioDivisas> readCuenta(Long cuenta);
 	

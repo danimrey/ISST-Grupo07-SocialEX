@@ -17,6 +17,7 @@ public class SolicitudCambioDivisasDAOImpl implements SolicitudCambioDivisasDAO 
 			instance  = new  SolicitudCambioDivisasDAOImpl( ) ;
 		return instance;  
 	}
+	
 	@Override
 	public SolicitudCambioDivisas Create(int estado, double importeCambio,
 			String divisaCambio, String divisaPredeterminada,
@@ -27,7 +28,20 @@ public class SolicitudCambioDivisasDAOImpl implements SolicitudCambioDivisasDAO 
 		em.close();
 		return solicitud;
 	}
-
+	
+	@Override
+	public SolicitudCambioDivisas read(Long id){
+		EntityManager em = EMFService.get().createEntityManager();
+		SolicitudCambioDivisas solicitud = null;
+		try{
+			solicitud = em.find(SolicitudCambioDivisas.class, id);
+		}catch(Exception e){
+			System.out.println("No encuentra solicitud por id");
+		}
+		em.close();
+		return solicitud;
+		
+	}
 	@Override
 	public List<SolicitudCambioDivisas> readAll() {
 		EntityManager em = EMFService.get().createEntityManager();
