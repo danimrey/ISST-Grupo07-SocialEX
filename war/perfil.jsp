@@ -58,6 +58,7 @@
           					
 					<section class="wrapper style5">
 						<div class="inner">
+						<div id="perfil">
 							<h5>Información de perfil</h5>
 							<p><b>Nombre: </b><c:out value="${cliente}" /></br>
 							<b>Correo (ID): </b><c:out value="${user}" /></br>
@@ -67,27 +68,29 @@
 							<b>Notificaciones: </b><c:out value="${notificaciones}" /></br></p>
 							<p><a href="editarPerfil.jsp">Editar pefil</a></p>
 							<h5>Movimientos de la cuenta</h5>
+						</div>
 								<div class="table-wrapper">
 								<c:if test="${not empty transacciones}">
 									<table class="alt">
 										<thead>
 											<tr>
 												<th>Fecha</th>
-												<th>Importe</th>
 												<th>Concepto</th>
-												<th>Divisa</th>
-												<th>Tipo</th>
-												<th>Tarjeta</th>
+												<th>Importe</th>
+												<th>Tarjeta asociada</th>
 											</tr>
 										</thead>
 										<tbody>
 											<c:forEach items="${transacciones}" var="tran">
 												<tr>
 													<td><c:out value="${tran.fechaCliente}" /></td>
-													<td><c:out value="${tran.importe}" /></td>
 													<td><c:out value="${tran.concepto}" /></td>
-													<td><c:out value="${tran.divisa}" /></td>
-													<td><c:out value="${tran.tipo}" /></td>
+													<td maxFractionDigits="2">
+														<c:if test="${tran.tipo=='INGRESAR' or tran.tipo=='CAMBIO_DIVISAS_ADD'}">
+															+
+														</c:if>
+														<c:out value="${tran.importe}" /> <c:out value="${tran.divisa}" />
+													</td>
 													<td><c:out value="${tarjetas[0].numeroTarjeta}" /></td>
 												</tr>
 											</c:forEach> 	
@@ -111,7 +114,7 @@
 										<tbody>
 											<tr>
 												<td>Euros</td>
-												<td><c:out value="${saldoEUR}" /></td>
+												<td><c:out value="${saldoEUR}" /> €</td>
 												<td>
 													<c:if test="${cuenta.divisaPredeterminada == 'EUR'}">
 														<a href="recargarCuenta.jsp">Aumentar saldo</a>
@@ -123,7 +126,7 @@
 											</tr>
 											<tr>
 												<td>Dólares estadounidenses</td>
-												<td><c:out value="${saldoDOL}" /></td>
+												<td><c:out value="${saldoDOL}" /> $</td>
 												<td>
 													<c:if test="${cuenta.divisaPredeterminada == 'USD'}">
 														<a href="recargarCuenta.jsp">Aumentar saldo</a>
@@ -135,7 +138,7 @@
 											</tr>
 											<tr>
 												<td>Libras esterlinas</td>
-												<td><c:out value="${saldoGBP}" /></td>
+												<td>£ <c:out value="${saldoGBP}" /> </td>
 												<td>
 													<c:if test="${cuenta.divisaPredeterminada == 'GBP'}">
 														<a href="recargarCuenta.jsp">Aumentar saldo</a>
@@ -147,7 +150,7 @@
 											</tr>
 											<tr>
 												<td>Yen japonés</td>
-												<td><c:out value="${saldoJPY}" /></td>
+												<td><c:out value="${saldoJPY}" /> ¥</td>
 													<td>
 													<c:if test="${cuenta.divisaPredeterminada == 'JPY'}">
 														<a href="recargarCuenta.jsp">Aumentar saldo</a>

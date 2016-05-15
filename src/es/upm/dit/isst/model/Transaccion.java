@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Transaccion implements Serializable {
 	
 	public enum Tipo{
-		INGRESAR, SACAR, COMPRAR, CAMBIO_DIVISAS, VACIO
+		INGRESAR, SACAR, COMPRAR, CAMBIO_DIVISAS_ADD, CAMBIO_DIVISAS_SACAR , AJUSTE_MATCH_AUTO,VACIO
 	}
 	
 	@SequenceGenerator(name="seq", initialValue=1, allocationSize=100)

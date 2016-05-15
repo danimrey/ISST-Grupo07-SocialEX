@@ -64,16 +64,16 @@ public class mercadoDivisas extends HttpServlet {
 					List<SolicitudCambioDivisas> todasSolicitudes = daoSolicitudes.readAll();
 					req.getSession().setAttribute("todasSolicitudes", new ArrayList<SolicitudCambioDivisas>(todasSolicitudes));
 					//Solicitudes euros
-					List<SolicitudCambioDivisas> solicitudesEuros = daoSolicitudes.readDivisaCambio("EUR");
+					List<SolicitudCambioDivisas> solicitudesEuros = daoSolicitudes.readDivisaCambioPendientes("EUR");
 					req.getSession().setAttribute("solicitudesEuros", new ArrayList<SolicitudCambioDivisas>(solicitudesEuros));
 					//Solicitudes dolares
-					List<SolicitudCambioDivisas> solicitudesDolares = daoSolicitudes.readDivisaCambio("USD");
+					List<SolicitudCambioDivisas> solicitudesDolares = daoSolicitudes.readDivisaCambioPendientes("USD");
 					req.getSession().setAttribute("solicitudesDolares", new ArrayList<SolicitudCambioDivisas>(solicitudesDolares));
 					//Solicitudes libras
-					List<SolicitudCambioDivisas> solicitudesLibras = daoSolicitudes.readDivisaCambio("GBP");
+					List<SolicitudCambioDivisas> solicitudesLibras = daoSolicitudes.readDivisaCambioPendientes("GBP");
 					req.getSession().setAttribute("solicitudesLibras", new ArrayList<SolicitudCambioDivisas>(solicitudesLibras));
 					//Solicitudes yenes
-					List<SolicitudCambioDivisas> solicitudesYenes = daoSolicitudes.readDivisaCambio("JPY");
+					List<SolicitudCambioDivisas> solicitudesYenes = daoSolicitudes.readDivisaCambioPendientes("JPY");
 					req.getSession().setAttribute("solicitudesYenes", new ArrayList<SolicitudCambioDivisas>(solicitudesYenes));
 
 					

@@ -60,6 +60,23 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>gestionCambioDivisas</servlet-name>
 		<url-pattern>/gestionCambioDivisas</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>matchingAutomatico</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.matchingAutomatico</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>matchingAutomatico</servlet-name>
+		<url-pattern>/matchingAutomatico</url-pattern>
+	</servlet-mapping>
+		<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>cron</web-resource-name>
+			<url-pattern>/matchingAutomatico</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
 	<welcome-file-list>
 		<welcome-file>isst_grupo07_socialex</welcome-file>
 	</welcome-file-list>

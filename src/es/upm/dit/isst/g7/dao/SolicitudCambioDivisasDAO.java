@@ -23,6 +23,9 @@ public interface SolicitudCambioDivisasDAO {
 	//Devuelve solicitudes de cambio por divisa solicitada
 	public List<SolicitudCambioDivisas> readDivisaCambio(String divisaCambio);
 	
+	//Devuelve solicitudes de cambio por divisa solicitada
+	public List<SolicitudCambioDivisas> readDivisaCambioPendientes(String divisaCambio);
+	
 	//Devuelve solicitudes de cambio por divisa predeterminda de cuenta
 	public List<SolicitudCambioDivisas> readDivisaCuenta(String divisaPredeterminada);
 	
