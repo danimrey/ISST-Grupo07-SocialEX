@@ -63,8 +63,6 @@ public class CuentaDAOImpl implements CuentaDAO {
 	public Cuenta GetCuentabyCliente(String cliente) {
 		EntityManager em = EMFService.get().createEntityManager();
 		Cuenta cuenta = null;
-		//Intenta buscar TFG por nombre de autor.
-		//Si no lo encuentra devuelve null.
 		try{
 			cuenta= (Cuenta) em.createQuery("select t from Cuenta t where t.cliente = :cliente").setParameter("cliente", cliente).getSingleResult();
 		}

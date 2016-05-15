@@ -69,18 +69,20 @@ public class recargaCuenta extends HttpServlet {
 			Tipo tipo = Tipo.INGRESAR;
 			TransaccionDAO dao2 = TransaccionDAOImpl.getInstance();
 			Transaccion t = dao2.createTransaccion(numeroCuentaLong, fechaCliente, divisa, value, "Recarga de dinero", tipo, num);
-			
-			try{
-				Message msg = new MimeMessage(Session.getDefaultInstance(new Properties(), null));
-	            msg.setFrom(new InternetAddress("ISSTGrupo07SocialEX@gmail.com", "Sistema de cambio de divisas"));
-	            msg.addRecipient(Message.RecipientType.TO,  new InternetAddress(user, "Propietario de la cuenta"));
-	            msg.setSubject("Ingreso de dinero en MassMoney");
-	            msg.setText("Usted ha realizado un ingreso en su cuenta por el importe de " + importe + " " + divisa);
-	            Transport.send(msg);
-			}catch(MessagingException e){ 
-				resp.setContentType("text/plain");
-	            resp.getWriter().println("Algo ha ido mal. Por favor, inténtelo otra vez.");
-	        } 
+			if(dao.GetClientebyCorreo(req.getUserPrincipal().getName()).getNotificaciones() == 1){
+				try{
+					Message msg = new MimeMessage(Session.getDefaultInstance(new Properties(), null));
+		            msg.setFrom(new InternetAddress("ISSTGrupo07SocialEX@gmail.com", "Sistema de cambio de divisas"));
+		            msg.addRecipient(Message.RecipientType.TO,  new InternetAddress(user, "Propietario de la cuenta"));
+		            msg.setSubject("Ingreso de dinero en MassMoney");
+		            msg.setText("Usted ha realizado un ingreso en su cuenta por el importe de " + importe + " " + divisa);
+		            Transport.send(msg);
+				}catch(MessagingException e){ 
+					resp.setContentType("text/plain");
+		            resp.getWriter().println("Algo ha ido mal. Por favor, inténtelo otra vez.");
+		        } 
+			}
+		
 			
 			
 			//Llama al servlet principal para cargar los datos de nuevo

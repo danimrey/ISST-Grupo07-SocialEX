@@ -36,6 +36,7 @@
 											<li><a href="isst_grupo07_socialex">Perfil</a></li>
 											<li><a href="recargarCuenta.jsp">Ingresar dinero</a></li>
 											<li><a href="solicitarCambioDivisas.jsp">Solicitar cambio de divisas</a></li>
+											<li><a href="gestionAmigos">Gestion de amigos</a></li>
 											<li><a href="#">Mercado divisas</a></li>
           									</c:if>
 										<li><a href= "<c:url value="${url}"/>"><c:out value="${urlLinktext}"/></a></li>
@@ -55,7 +56,7 @@
           					</header>
 					<section class="wrapper style5">
 						<div class="inner">
-						<p>Se muestran las solicitudes de cambio de divisas de todos los usuarios de Massmoney.<br>
+						<p>Se muestran las solicitudes de cambio de divisas sus amigos de Massmoney.<br>
 						Puede seleccionar cualquier solicitud y completar un cambio de divisa.</p>
 						
 						<h5>Cambio a Euros</h5>

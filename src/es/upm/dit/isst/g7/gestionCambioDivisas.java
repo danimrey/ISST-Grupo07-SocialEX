@@ -116,6 +116,21 @@ public class gestionCambioDivisas extends HttpServlet {
 					//Actualiza estado
 					solicitud.setEstado(2);
 					daoSolicitud.Update(solicitud);
+					ClienteDAO dao = ClienteDAOImpl.getInstance();
+					if(dao.GetClientebyCorreo(cuentaMonedaOrigen.getCliente()).getNotificaciones() == 1){
+						try{
+							Message msg = new MimeMessage(Session.getDefaultInstance(new Properties(), null));
+			            	msg.setFrom(new InternetAddress("ISSTGrupo07SocialEX@gmail.com", "Sistema de cambio de divisas"));
+			            	msg.addRecipient(Message.RecipientType.TO,  new InternetAddress(cuentaMonedaOrigen.getCliente(), "Amigo"));
+			            	msg.setSubject("Cambio realizado");
+			            	msg.setText("Se ha realizado el cambio de divisas de " + importeMonedaOriginal + 
+			            			" " + divisaOriginal + " a " + importeMonedaCambiada + " " + divisaCambio + " con su amigo " + cuentaMonedaACambiar.getCliente());
+			            	Transport.send(msg);
+						}catch(MessagingException e){ 
+							resp.setContentType("text/plain");
+							resp.getWriter().println("Algo ha ido mal. Por favor, inténtelo otra vez.");
+						}
+					}
 				}else{
 					System.out.println("No hay fondos");
 					resp.sendRedirect("/isst_grupo07_socialex");

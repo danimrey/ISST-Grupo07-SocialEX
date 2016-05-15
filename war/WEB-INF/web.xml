@@ -61,6 +61,46 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/gestionCambioDivisas</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>borrarAmigo</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.borrarAmigo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>borrarAmigo</servlet-name>
+		<url-pattern>/borrarAmigo</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>nuevoAmigo</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.nuevoAmigo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>nuevoAmigo</servlet-name>
+		<url-pattern>/nuevoAmigo</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>aceptarAmigo</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.aceptarAmigo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>aceptarAmigo</servlet-name>
+		<url-pattern>/aceptarAmigo</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>rechazarAmigo</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.rechazarAmigo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rechazarAmigo</servlet-name>
+		<url-pattern>/rechazarAmigo</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>GestionAmigos</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.GestionAmigos</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GestionAmigos</servlet-name>
+		<url-pattern>/gestionAmigos</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>matchingAutomatico</servlet-name>
 		<servlet-class>es.upm.dit.isst.g7.matchingAutomatico</servlet-class>
 	</servlet>

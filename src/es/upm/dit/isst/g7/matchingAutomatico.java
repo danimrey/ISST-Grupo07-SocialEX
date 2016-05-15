@@ -158,6 +158,35 @@ public class matchingAutomatico extends HttpServlet {
 							//Control
 							control = 1;
 							
+							//Enviamos la notificacion por correo, si lo tienen activado, a los usuarios de las dos cuentas
+							ClienteDAO dao = ClienteDAOImpl.getInstance();
+							if(dao.GetClientebyCorreo(cuenta1.getCliente()).getNotificaciones() == 1){
+								try{
+									Message msg = new MimeMessage(Session.getDefaultInstance(new Properties(), null));
+						            msg.setFrom(new InternetAddress("ISSTGrupo07SocialEX@gmail.com", "Sistema de cambio de divisas"));
+						            msg.addRecipient(Message.RecipientType.TO,  new InternetAddress(cuenta1.getCliente(), "Propietario de la cuenta"));
+						            msg.setSubject("Solicitud completada");
+						            msg.setText("Se ha completado una solicitud de cambio de divisas, mire su perfil para más información.");
+						            Transport.send(msg);
+								}catch(MessagingException e){ 
+									resp.setContentType("text/plain");
+						            resp.getWriter().println("Algo ha ido mal. Por favor, inténtelo otra vez.");
+						        } 
+							}
+							if(dao.GetClientebyCorreo(cuenta2.getCliente()).getNotificaciones() == 1){
+								try{
+									Message msg = new MimeMessage(Session.getDefaultInstance(new Properties(), null));
+						            msg.setFrom(new InternetAddress("ISSTGrupo07SocialEX@gmail.com", "Sistema de cambio de divisas"));
+						            msg.addRecipient(Message.RecipientType.TO,  new InternetAddress(cuenta2.getCliente(), "Propietario de la cuenta"));
+						            msg.setSubject("Solicitud completada");
+						            msg.setText("Se ha completado una solicitud de cambio de divisas, mire su perfil para más información.");
+						            Transport.send(msg);
+								}catch(MessagingException e){ 
+									resp.setContentType("text/plain");
+						            resp.getWriter().println("Algo ha ido mal. Por favor, inténtelo otra vez.");
+						        } 
+							}
+							
 							
 						}else{
 							System.out.println("No hay fondos");

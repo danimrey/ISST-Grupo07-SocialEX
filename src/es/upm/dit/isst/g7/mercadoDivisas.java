@@ -20,6 +20,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties; 
 
 import es.upm.dit.isst.g7.dao.ClienteDAO;
@@ -30,6 +31,7 @@ import es.upm.dit.isst.g7.dao.SolicitudCambioDivisasDAO;
 import es.upm.dit.isst.g7.dao.SolicitudCambioDivisasDAOImpl;
 import es.upm.dit.isst.g7.dao.TransaccionDAO;
 import es.upm.dit.isst.g7.dao.TransaccionDAOImpl;
+import es.upm.dit.isst.model.Cliente;
 import es.upm.dit.isst.model.Cuenta;
 import es.upm.dit.isst.model.SolicitudCambioDivisas;
 import es.upm.dit.isst.model.Transaccion;
@@ -59,21 +61,54 @@ public class mercadoDivisas extends HttpServlet {
 					Cuenta cuenta = daoCuenta.GetCuentabyCliente(user);
 					req.getSession().setAttribute("cuenta", cuenta);
 					
-					//Todas las solicitudes de cambio
+					//Amigos
+					ClienteDAO daoCliente = ClienteDAOImpl.getInstance();
+					Cliente cliente = daoCliente.GetClientebyCorreo(user);
+					List<String> amigos = cliente.getAmigos();
+					req.getSession().setAttribute("amigos", new ArrayList<String>(amigos));
+					
+					//Todas las solicitudes de cambio de amigos
 					SolicitudCambioDivisasDAO daoSolicitudes = SolicitudCambioDivisasDAOImpl.getInstance();
-					List<SolicitudCambioDivisas> todasSolicitudes = daoSolicitudes.readAll();
+					List<SolicitudCambioDivisas> todasSolicitudes = new ArrayList<SolicitudCambioDivisas>();
+					for(int i=0; i<amigos.size(); i++){
+						Cuenta unaCuentaDeAmigo = daoCuenta.GetCuentabyCliente(amigos.get(i));
+						List<SolicitudCambioDivisas> todasSolicitudesUnAmigo = daoSolicitudes.readCuenta(unaCuentaDeAmigo.getId());
+						for(int j=0; j<todasSolicitudesUnAmigo.size(); j++){
+							todasSolicitudes.add(todasSolicitudesUnAmigo.get(j));
+						}
+					}
 					req.getSession().setAttribute("todasSolicitudes", new ArrayList<SolicitudCambioDivisas>(todasSolicitudes));
 					//Solicitudes euros
-					List<SolicitudCambioDivisas> solicitudesEuros = daoSolicitudes.readDivisaCambioPendientes("EUR");
+					List<SolicitudCambioDivisas> solicitudesEuros = new ArrayList<SolicitudCambioDivisas>();
+					for(int i=0; i<todasSolicitudes.size(); i++){
+						if(Objects.equals(todasSolicitudes.get(i).getDivisaCambio(),new String("EUR"))){ 
+							solicitudesEuros.add(todasSolicitudes.get(i));
+						}
+					}
 					req.getSession().setAttribute("solicitudesEuros", new ArrayList<SolicitudCambioDivisas>(solicitudesEuros));
 					//Solicitudes dolares
-					List<SolicitudCambioDivisas> solicitudesDolares = daoSolicitudes.readDivisaCambioPendientes("USD");
+					List<SolicitudCambioDivisas> solicitudesDolares = new ArrayList<SolicitudCambioDivisas>();
+					for(int i=0; i<todasSolicitudes.size(); i++){
+						if(Objects.equals(todasSolicitudes.get(i).getDivisaCambio(),new String("USD"))){ 
+							solicitudesDolares.add(todasSolicitudes.get(i));
+						}
+					}
 					req.getSession().setAttribute("solicitudesDolares", new ArrayList<SolicitudCambioDivisas>(solicitudesDolares));
 					//Solicitudes libras
-					List<SolicitudCambioDivisas> solicitudesLibras = daoSolicitudes.readDivisaCambioPendientes("GBP");
+					List<SolicitudCambioDivisas> solicitudesLibras = new ArrayList<SolicitudCambioDivisas>();
+					for(int i=0; i<todasSolicitudes.size(); i++){
+						if(Objects.equals(todasSolicitudes.get(i).getDivisaCambio(),new String("GBP"))){ 
+							solicitudesLibras.add(todasSolicitudes.get(i));
+						}
+					}
 					req.getSession().setAttribute("solicitudesLibras", new ArrayList<SolicitudCambioDivisas>(solicitudesLibras));
 					//Solicitudes yenes
-					List<SolicitudCambioDivisas> solicitudesYenes = daoSolicitudes.readDivisaCambioPendientes("JPY");
+					List<SolicitudCambioDivisas> solicitudesYenes = new ArrayList<SolicitudCambioDivisas>();
+					for(int i=0; i<todasSolicitudes.size(); i++){
+						if(Objects.equals(todasSolicitudes.get(i).getDivisaCambio(),new String("JPY"))){ 
+							solicitudesYenes.add(todasSolicitudes.get(i));
+						}
+					}
 					req.getSession().setAttribute("solicitudesYenes", new ArrayList<SolicitudCambioDivisas>(solicitudesYenes));
 
 					

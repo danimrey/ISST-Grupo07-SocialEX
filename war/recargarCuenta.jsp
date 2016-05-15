@@ -36,7 +36,8 @@
 												<li><a href="isst_grupo07_socialex">Perfil</a></li>
 												<li><a href="#">Ingresar dinero</a></li>
 												<li><a href="solicitarCambioDivisas.jsp">Solicitar cambio de divisas</a></li>
-												<li><a href="mercadoDivisas">Mercado divisas</a></li>
+												<li><a href="gestionAmigos">Gestion de amigos</a></li>
+           										<li><a href="mercadoDivisas">Mercado divisas</a></li>
            									</c:if>
 											<li><a href= "<c:url value="${url}"/>"><c:out value="${urlLinktext}"/></a></li>
 										</ul>

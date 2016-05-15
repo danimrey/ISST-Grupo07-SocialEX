@@ -32,6 +32,8 @@ public class Cliente implements Serializable {
 	private List<Long> cuentas;
 	@ManyToMany(fetch=FetchType.EAGER) 
 	private List<String> amigos;
+	@ManyToMany(fetch=FetchType.EAGER) 
+	private List<String> solicitudesPendientes;
 	
 	public Cliente(String nombre,String apellidos, String correo, String pais, int notificaciones) {
 		super();
@@ -47,6 +49,7 @@ public class Cliente implements Serializable {
 		this.fechaCreacion = formatted;
 		this.cuentas = new ArrayList<Long>();
 		this.amigos = new ArrayList<String>();
+		this.solicitudesPendientes = new ArrayList<String>();
 	}
 
 	public String getNombre() {
@@ -103,5 +106,12 @@ public class Cliente implements Serializable {
 	}
 	public void setAmigos(List<String> amigos) {
 		this.amigos = amigos;
+	}
+	
+	public List<String> getSolicitudesPendientes() {
+		return solicitudesPendientes;
+	}
+	public void setSolicitudesPendientes(List<String> solicitudesPendientes) {
+		this.solicitudesPendientes = solicitudesPendientes;
 	}
 }
