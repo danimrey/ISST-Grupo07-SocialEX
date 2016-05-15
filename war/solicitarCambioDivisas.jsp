@@ -60,8 +60,8 @@
 									<form method="post" action="/solicitarCambioDivisas">
 										<div class="row uniform">
 										<div class="1u">Cambiar</div>
-											<div class="3u 3u$(xsmall)">
-												<input type="text" name="cantidadSolicitada" id="cantidadSolicitada" value="" placeholder="Cantidad solicitada" min="1" />
+											<div class="2u 3u$(xsmall)">
+												<input type="text" name="cantidadSolicitada" id="cantidadSolicitada" value="" placeholder="Cantidad" min="1" />
 												<input type="hidden" name="localTime" id="localTime" value=""/>
 												<input type="hidden" name="numeroCuenta" id="numeroCuenta" value=<c:out value="${cuenta.id}"/> />
 												<input type="hidden" name="divisaPredeterminada" id="divisaPredeterminada" value=<c:out value="${cuenta.divisaPredeterminada}"/> />
@@ -87,7 +87,7 @@
 										
 									</script>
 											</div>
-											<div class="2u">
+											<div class="4u">
 												<div class="select-wrapper">
 						
 													<select name="divisasPredet" id="divisaPredet">

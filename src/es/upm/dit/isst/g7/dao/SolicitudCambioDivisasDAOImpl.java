@@ -139,5 +139,19 @@ public class SolicitudCambioDivisasDAOImpl implements SolicitudCambioDivisasDAO 
 			em.close();
 		}
 	}
+	@Override
+	public List<SolicitudCambioDivisas> readDivisaCambioPendientes(
+			String divisaCambio) {
+		EntityManager em = EMFService.get().createEntityManager();
+		List<SolicitudCambioDivisas> solicitudes = new ArrayList<SolicitudCambioDivisas>();
+		try{
+			solicitudes = em.createQuery("select m from SolicitudCambioDivisas m where m.estado = 1 AND m.divisaCambio = :divisaCambio").setParameter("divisaCambio", divisaCambio).getResultList();
+
+		}catch(Exception e){
+			System.out.println("No encuentra solicitud por divisaCambio");
+		}
+		em.close();
+		return solicitudes;
+	}
 
 }

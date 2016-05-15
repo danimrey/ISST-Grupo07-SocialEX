@@ -85,10 +85,10 @@
 															<%--Cuenta que había solicitado el cambio de divisas --%>
 															<input type="hidden" name="cuentaSolicitante" id="cuentaSolicitante" value=<c:out value="${sol.cuentaSolicitante}"/> />
 															<input type="hidden" name="idSolicitud" id="idSolicitud" value=<c:out value="${sol.id}"/> />
-															<c:if test="${cuenta.id!=sol.cuentaSolicitante}">
+															<c:if test="${cuenta.id!=sol.cuentaSolicitante and sol.estado!=2}">
 																<input type="submit" name="action" value="Cambiar">
 															</c:if>
-															<c:if test="${cuenta.id==sol.cuentaSolicitante}">
+															<c:if test="${cuenta.id==sol.cuentaSolicitante and sol.estado!=2}">
     															<input type="submit" name="action" value="Cancelar" class="special">
     														</c:if>
 														</form>
@@ -129,10 +129,10 @@
 															<%--Cuenta que había solicitado el cambio de divisas --%>
 															<input type="hidden" name="cuentaSolicitante" id="cuentaSolicitante" value=<c:out value="${sol.cuentaSolicitante}"/> />
 															<input type="hidden" name="idSolicitud" id="idSolicitud" value=<c:out value="${sol.id}"/> />
-															<c:if test="${cuenta.id!=sol.cuentaSolicitante}">
+															<c:if test="${cuenta.id!=sol.cuentaSolicitante and sol.estado!=2}">
 																<input type="submit" name="action" value="Cambiar">
 															</c:if>
-															<c:if test="${cuenta.id==sol.cuentaSolicitante}">
+															<c:if test="${cuenta.id==sol.cuentaSolicitante and sol.estado!=2}">
     															<input type="submit" name="action" value="Cancelar" class="special">
     														</c:if>
 														</form>
@@ -173,10 +173,10 @@
 															<%--Cuenta que había solicitado el cambio de divisas --%>
 															<input type="hidden" name="cuentaSolicitante" id="cuentaSolicitante" value=<c:out value="${sol.cuentaSolicitante}"/> />
 															<input type="hidden" name="idSolicitud" id="idSolicitud" value=<c:out value="${sol.id}"/> />
-															<c:if test="${cuenta.id!=sol.cuentaSolicitante}">
+															<c:if test="${cuenta.id!=sol.cuentaSolicitante and sol.estado!=2}">
 																<input type="submit" name="action" value="Cambiar">
 															</c:if>
-															<c:if test="${cuenta.id==sol.cuentaSolicitante}">
+															<c:if test="${cuenta.id==sol.cuentaSolicitante and sol.estado!=2}">
     															<input type="submit" name="action" value="Cancelar" class="special">
     														</c:if>
 														</form>
@@ -217,10 +217,10 @@
 															<%--Cuenta que había solicitado el cambio de divisas --%>
 															<input type="hidden" name="cuentaSolicitante" id="cuentaSolicitante" value=<c:out value="${sol.cuentaSolicitante}"/> />
 															<input type="hidden" name="idSolicitud" id="idSolicitud" value=<c:out value="${sol.id}"/> />
-															<c:if test="${cuenta.id!=sol.cuentaSolicitante}">
+															<c:if test="${cuenta.id!=sol.cuentaSolicitante and sol.estado!=2}">
 																<input type="submit" name="action" value="Cambiar">
 															</c:if>
-															<c:if test="${cuenta.id==sol.cuentaSolicitante}">
+															<c:if test="${cuenta.id==sol.cuentaSolicitante and sol.estado!=2}">
     															<input type="submit" name="action" value="Cancelar" class="special">
     														</c:if>
 														</form>
