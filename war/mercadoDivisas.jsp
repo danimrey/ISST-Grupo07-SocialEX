@@ -104,7 +104,7 @@
 									</c:if>
 								</div>
 								
-								<h5>Cambio a Dólares americanos</h5>
+								<h5>Cambio a Dólares estadounidenses</h5>
 								<div class="table-wrapper">
 								<c:if test="${not empty solicitudesDolares}">
 									<table class="alt">
@@ -144,7 +144,7 @@
 									</table>
 									</c:if>
 									<c:if test="${ empty solicitudesDolares}">
-									<p>No hay solicitudes de dólares americanos</p>
+									<p>No hay solicitudes de dólares estadounidenses</p>
 									</c:if>
 								</div>
 								

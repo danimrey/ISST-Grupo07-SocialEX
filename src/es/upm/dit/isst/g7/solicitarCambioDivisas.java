@@ -26,6 +26,7 @@ import es.upm.dit.isst.g7.dao.SolicitudCambioDivisasDAOImpl;
 import es.upm.dit.isst.g7.dao.TransaccionDAO;
 import es.upm.dit.isst.g7.dao.TransaccionDAOImpl;
 import es.upm.dit.isst.model.Cuenta;
+import es.upm.dit.isst.model.SolicitudCambioDivisas;
 import es.upm.dit.isst.model.Transaccion;
 import es.upm.dit.isst.model.Transaccion.Tipo;
 import es.upm.dit.isst.yahoo.YahooCurrencyConverter;
@@ -75,7 +76,7 @@ public class solicitarCambioDivisas extends HttpServlet {
 		if(user!= null){
 			//Escribe en tabla SolicitudCambioDivisas
 			 SolicitudCambioDivisasDAO daoCambio = SolicitudCambioDivisasDAOImpl.getInstance();
-			 daoCambio.Create(1, Double.parseDouble(cantidadSolicitada), divisaSolicitada, divisaPredeterminada, Long.parseLong(numeroCuenta), 1, Long.parseLong(numeroTarjeta),importeDivisaACambiar);
+			 SolicitudCambioDivisas sol = daoCambio.Create(1, Double.parseDouble(cantidadSolicitada), divisaSolicitada, divisaPredeterminada, Long.parseLong(numeroCuenta), 1, Long.parseLong(numeroTarjeta),importeDivisaACambiar);
 		}
 		resp.sendRedirect("/isst_grupo07_socialex");
 	}
