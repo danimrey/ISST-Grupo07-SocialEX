@@ -61,7 +61,7 @@ public class recargaCuenta extends HttpServlet {
 			System.out.println(value);
 			ClienteDAO dao = ClienteDAOImpl.getInstance();
 			CuentaDAO daoCuenta = CuentaDAOImpl.getInstance();
-			Long numeroCuentaLong = Long.parseLong(numeroCuenta, 10);
+			Long numeroCuentaLong = Long.parseLong(numeroCuenta);
 			Cuenta cuenta = daoCuenta.GetCuenta(numeroCuentaLong);
 			cuenta.addSaldo(divisa, value);
 			daoCuenta.update(cuenta);

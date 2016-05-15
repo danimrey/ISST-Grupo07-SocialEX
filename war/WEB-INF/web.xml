@@ -36,6 +36,30 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>editarPerfil</servlet-name>
 		<url-pattern>/editarPerfil</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>solicitarCambioDivisas</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.solicitarCambioDivisas</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>solicitarCambioDivisas</servlet-name>
+		<url-pattern>/solicitarCambioDivisas</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>mercadoDivisas</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.mercadoDivisas</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mercadoDivisas</servlet-name>
+		<url-pattern>/mercadoDivisas</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>gestionCambioDivisas</servlet-name>
+		<servlet-class>es.upm.dit.isst.g7.gestionCambioDivisas</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>gestionCambioDivisas</servlet-name>
+		<url-pattern>/gestionCambioDivisas</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>isst_grupo07_socialex</welcome-file>
 	</welcome-file-list>

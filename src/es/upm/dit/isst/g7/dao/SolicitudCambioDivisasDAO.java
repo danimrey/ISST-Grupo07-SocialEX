@@ -7,9 +7,9 @@ import es.upm.dit.isst.model.SolicitudCambioDivisas;
 public interface SolicitudCambioDivisasDAO {
 	
 	//Crea una nueva solicitud
-	public SolicitudCambioDivisas Create(int estado, double importeCambio,
+	public SolicitudCambioDivisas Create(int estado, double importeDivisaOriginal,
 			String divisaCambio, String divisaPredeterminada,
-			Long cuentaSolicitante, int modoSolicitud);
+			Long cuentaSolicitante, int modoSolicitud, Long tarjeta, double importeDivisaACambiar);
 	
 	//Devuelve todas las solcitudes de cambio
 	public List<SolicitudCambioDivisas> readAll();

@@ -9,7 +9,7 @@
 -->
 <html>
 	<head>
-		<title>Perfil</title>
+		<title>Mercado de divisas</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -36,7 +36,7 @@
 											<li><a href="isst_grupo07_socialex">Perfil</a></li>
 											<li><a href="recargarCuenta.jsp">Ingresar dinero</a></li>
 											<li><a href="solicitarCambioDivisas.jsp">Solicitar cambio de divisas</a></li>
-											<li><a href="mercadoDivisas">Mercado divisas</a></li>
+											<li><a href="#">Mercado divisas</a></li>
           									</c:if>
 										<li><a href= "<c:url value="${url}"/>"><c:out value="${urlLinktext}"/></a></li>
 									</ul>
@@ -49,155 +49,192 @@
 			<!-- Main -->
 				<article id="main">
 					<header>
-						
-						<c:if test="${user!=null}">
-							<h2><c:out value="${user}" /></h2>
-          					</c:if>
-          					<p>En esta página puede gestionar su perfil, ver sus transacciones y saldo de divisas</p>
-          					</header>
+							<h2>Mercado de cambio de divisas</h2>
           					
+          					<p>En esta página puede ver las solicitudes de cambio de divisas pendientes.</p>
+          					</header>
 					<section class="wrapper style5">
 						<div class="inner">
-							<h5>Información de perfil</h5>
-							<p><b>Nombre: </b><c:out value="${cliente}" /></br>
-							<b>Correo (ID): </b><c:out value="${user}" /></br>
-							<b>País: </b><c:out value="${pais}" /></br>
-							<b>Nº Cuenta MassMoney : </b><c:out value="${cuenta.id}" /></br>
-							<b>Tarjeta asociada principal : </b><c:out value="${tarjetas[0].numeroTarjeta}" /></br>
-							<b>Notificaciones: </b><c:out value="${notificaciones}" /></br></p>
-							<p><a href="editarPerfil.jsp">Editar pefil</a></p>
-							<h5>Movimientos de la cuenta</h5>
-								<div class="table-wrapper">
-								<c:if test="${not empty transacciones}">
-									<table class="alt">
-										<thead>
-											<tr>
-												<th>Fecha</th>
-												<th>Importe</th>
-												<th>Concepto</th>
-												<th>Divisa</th>
-												<th>Tipo</th>
-												<th>Tarjeta</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${transacciones}" var="tran">
-												<tr>
-													<td><c:out value="${tran.fechaCliente}" /></td>
-													<td><c:out value="${tran.importe}" /></td>
-													<td><c:out value="${tran.concepto}" /></td>
-													<td><c:out value="${tran.divisa}" /></td>
-													<td><c:out value="${tran.tipo}" /></td>
-													<td><c:out value="${tarjetas[0].numeroTarjeta}" /></td>
-												</tr>
-											</c:forEach> 	
-										</tbody>
-									</table>
-									</c:if>
-									<c:if test="${ empty transacciones}">
-									<p>Aquí aparecerán sus transacciones.</p>
-									</c:if>
-								</div>
+						<p>Se muestran las solicitudes de cambio de divisas de todos los usuarios de Massmoney.<br>
+						Puede seleccionar cualquier solicitud y completar un cambio de divisa.</p>
 						
-								<h5>Saldo de divisas</h5>
+						<h5>Cambio a Euros</h5>
 								<div class="table-wrapper">
-									<table class="alt">
-										<thead>
-											<tr>
-												<th>Divisa</th>
-												<th>Saldo</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Euros</td>
-												<td><c:out value="${saldoEUR}" /></td>
-												<td>
-													<c:if test="${cuenta.divisaPredeterminada == 'EUR'}">
-														<a href="recargarCuenta.jsp">Aumentar saldo</a>
-													</c:if>
-													<c:if test="${cuenta.divisaPredeterminada!='EUR'}">
-														<a href="solicitarCambioDivisas.jsp">Solicitar cambio</a>
-													</c:if>
-												</td>
-											</tr>
-											<tr>
-												<td>Dólares estadounidenses</td>
-												<td><c:out value="${saldoDOL}" /></td>
-												<td>
-													<c:if test="${cuenta.divisaPredeterminada == 'USD'}">
-														<a href="recargarCuenta.jsp">Aumentar saldo</a>
-													</c:if>
-													<c:if test="${cuenta.divisaPredeterminada!='USD'}">
-														<a href="solicitarCambioDivisas.jsp">Solicitar cambio</a>
-													</c:if>
-												</td>
-											</tr>
-											<tr>
-												<td>Libras esterlinas</td>
-												<td><c:out value="${saldoGBP}" /></td>
-												<td>
-													<c:if test="${cuenta.divisaPredeterminada == 'GBP'}">
-														<a href="recargarCuenta.jsp">Aumentar saldo</a>
-													</c:if>
-													<c:if test="${cuenta.divisaPredeterminada!='GBP'}">
-														<a href="solicitarCambioDivisas.jsp">Solicitar cambio</a>
-													</c:if>
-												</td>
-											</tr>
-											<tr>
-												<td>Yen japonés</td>
-												<td><c:out value="${saldoJPY}" /></td>
-													<td>
-													<c:if test="${cuenta.divisaPredeterminada == 'JPY'}">
-														<a href="recargarCuenta.jsp">Aumentar saldo</a>
-													</c:if>
-													<c:if test="${cuenta.divisaPredeterminada!='JPY'}">
-														<a href="solicitarCambioDivisas.jsp">Solicitar cambio</a>
-													</c:if>
-												</td>
-												</tr>
-											</tbody>
-										</table>
-
-									</div>
-									
-									<h5>Solicitudes de cambio de divisas</h5>
-								<div class="table-wrapper">
-								<c:if test="${not empty solicitudesCambio}">
+								<c:if test="${not empty solicitudesEuros}">
 									<table class="alt">
 										<thead>
 											<tr>
 												<th>Fecha</th>
 												<th>Cantidad a cambiar</th>
 												<th>Cambio esperado</th>
-												<th>Estado</th>
+												<th>Acción</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${solicitudesCambio}" var="sol">
+											<c:forEach items="${solicitudesEuros}" var="sol">
+											
 												<tr>
 													<td><c:out value="${sol.fechaSolicitud}" /></td>
 													<td><c:out value="${sol.importeDivisaOriginal}" /> <c:out value="${sol.divisaPredeterminada}" /></td>
 													<td><c:out value="${sol.importeDivisaACambiar}" /> <c:out value="${sol.divisaCambio}" /></td>
+				
 													<td>
-														<c:if test="${sol.estado == 1}">
-															Pendiente
-														</c:if>
-														<c:if test="${sol.estado == 2}">
-															Aceptada
-														</c:if>
+													<form method="post" action="/gestionCambioDivisas">
+															<%--Cuenta actual que acepta la petición de cambio --%>
+															<input type="hidden" name="cuentaAcepta" id="cuentaAcepta" value=<c:out value="${cuenta.id}"/> />
+															<%--Cuenta que había solicitado el cambio de divisas --%>
+															<input type="hidden" name="cuentaSolicitante" id="cuentaSolicitante" value=<c:out value="${sol.cuentaSolicitante}"/> />
+															<input type="hidden" name="idSolicitud" id="idSolicitud" value=<c:out value="${sol.id}"/> />
+															<c:if test="${cuenta.id!=sol.cuentaSolicitante}">
+																<input type="submit" name="action" value="Cambiar">
+															</c:if>
+															<c:if test="${cuenta.id==sol.cuentaSolicitante}">
+    															<input type="submit" name="action" value="Cancelar" class="special">
+    														</c:if>
+														</form>
 													</td>
 												</tr>
 											</c:forEach> 	
 										</tbody>
 									</table>
 									</c:if>
-									<c:if test="${ empty solicitudesCambio}">
-									<p>Aquí aparecerán sus solicitudes de cambio.</p>
+									<c:if test="${ empty solicitudesEuros}">
+									<p>No hay solicitudes de euros</p>
 									</c:if>
 								</div>
-
+								
+								<h5>Cambio a Dólares americanos</h5>
+								<div class="table-wrapper">
+								<c:if test="${not empty solicitudesDolares}">
+									<table class="alt">
+										<thead>
+											<tr>
+												<th>Fecha</th>
+												<th>Cantidad a cambiar</th>
+												<th>Cambio esperado</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${solicitudesDolares}" var="sol">
+											
+												<tr>
+													<td><c:out value="${sol.fechaSolicitud}" /></td>
+													<td><c:out value="${sol.importeDivisaOriginal}" /> <c:out value="${sol.divisaPredeterminada}" /></td>
+													<td><c:out value="${sol.importeDivisaACambiar}" /> <c:out value="${sol.divisaCambio}" /></td>
+													<td>
+														<form method="post" action="/gestionCambioDivisas">
+															<%--Cuenta actual que acepta la petición de cambio --%>
+															<input type="hidden" name="cuentaAcepta" id="cuentaAcepta" value=<c:out value="${cuenta.id}"/> />
+															<%--Cuenta que había solicitado el cambio de divisas --%>
+															<input type="hidden" name="cuentaSolicitante" id="cuentaSolicitante" value=<c:out value="${sol.cuentaSolicitante}"/> />
+															<input type="hidden" name="idSolicitud" id="idSolicitud" value=<c:out value="${sol.id}"/> />
+															<c:if test="${cuenta.id!=sol.cuentaSolicitante}">
+																<input type="submit" name="action" value="Cambiar">
+															</c:if>
+															<c:if test="${cuenta.id==sol.cuentaSolicitante}">
+    															<input type="submit" name="action" value="Cancelar" class="special">
+    														</c:if>
+														</form>
+													</td>
+												</tr>
+											</c:forEach> 	
+										</tbody>
+									</table>
+									</c:if>
+									<c:if test="${ empty solicitudesDolares}">
+									<p>No hay solicitudes de dólares americanos</p>
+									</c:if>
+								</div>
+								
+								<h5>Cambio a Libras esterlinas</h5>
+								<div class="table-wrapper">
+								<c:if test="${not empty solicitudesLibras}">
+									<table class="alt">
+										<thead>
+											<tr>
+												<th>Fecha</th>
+												<th>Cantidad a cambiar</th>
+												<th>Cambio esperado</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${solicitudesLibras}" var="sol">
+											
+												<tr>
+													<td><c:out value="${sol.fechaSolicitud}" /></td>
+													<td><c:out value="${sol.importeDivisaOriginal}" /> <c:out value="${sol.divisaPredeterminada}" /></td>
+													<td><c:out value="${sol.importeDivisaACambiar}" /> <c:out value="${sol.divisaCambio}" /></td>
+													<td>
+													<form method="post" action="/gestionCambioDivisas">
+															<%--Cuenta actual que acepta la petición de cambio --%>
+															<input type="hidden" name="cuentaAcepta" id="cuentaAcepta" value=<c:out value="${cuenta.id}"/> />
+															<%--Cuenta que había solicitado el cambio de divisas --%>
+															<input type="hidden" name="cuentaSolicitante" id="cuentaSolicitante" value=<c:out value="${sol.cuentaSolicitante}"/> />
+															<input type="hidden" name="idSolicitud" id="idSolicitud" value=<c:out value="${sol.id}"/> />
+															<c:if test="${cuenta.id!=sol.cuentaSolicitante}">
+																<input type="submit" name="action" value="Cambiar">
+															</c:if>
+															<c:if test="${cuenta.id==sol.cuentaSolicitante}">
+    															<input type="submit" name="action" value="Cancelar" class="special">
+    														</c:if>
+														</form>
+													</td>
+												</tr>
+											</c:forEach> 	
+										</tbody>
+									</table>
+									</c:if>
+									<c:if test="${ empty solicitudesLibras}">
+									<p>No hay solicitudes de libras</p>
+									</c:if>
+								</div>
+								
+								<h5>Cambio a Yenes</h5>
+								<div class="table-wrapper">
+								<c:if test="${not empty solicitudesYenes}">
+									<table class="alt">
+										<thead>
+											<tr>
+												<th>Fecha</th>
+												<th>Cantidad a cambiar</th>
+												<th>Cambio esperado</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${solicitudesYenes}" var="sol">
+											
+												<tr>
+													<td><c:out value="${sol.fechaSolicitud}" /></td>
+													<td><c:out value="${sol.importeDivisaOriginal}" /> <c:out value="${sol.divisaPredeterminada}" /></td>
+													<td><c:out value="${sol.importeDivisaACambiar}" /> <c:out value="${sol.divisaCambio}" /></td>
+													<td>
+													<form method="post" action="/gestionCambioDivisas">
+															<%--Cuenta actual que acepta la petición de cambio --%>
+															<input type="hidden" name="cuentaAcepta" id="cuentaAcepta" value=<c:out value="${cuenta.id}"/> />
+															<%--Cuenta que había solicitado el cambio de divisas --%>
+															<input type="hidden" name="cuentaSolicitante" id="cuentaSolicitante" value=<c:out value="${sol.cuentaSolicitante}"/> />
+															<input type="hidden" name="idSolicitud" id="idSolicitud" value=<c:out value="${sol.id}"/> />
+															<c:if test="${cuenta.id!=sol.cuentaSolicitante}">
+																<input type="submit" name="action" value="Cambiar">
+															</c:if>
+															<c:if test="${cuenta.id==sol.cuentaSolicitante}">
+    															<input type="submit" name="action" value="Cancelar" class="special">
+    														</c:if>
+														</form>
+													</td>
+												</tr>
+											</c:forEach> 	
+										</tbody>
+									</table>
+									</c:if>
+									<c:if test="${ empty solicitudesYenes}">
+									<p>No hay solicitudes de yenes</p>
+									</c:if>
+								</div>
+								<br><br>
 									<h5>Conversor de divisas - Yahoo Finance</h5>
 									<div class="table-wrapper">
 										<table class="alt">

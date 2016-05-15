@@ -9,7 +9,7 @@
 -->
 <html>
 	<head>
-		<title>Recargar cuenta</title>
+		<title>Solicitar cambio de divisas</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -34,8 +34,8 @@
 											<li><a href="index.jsp">Inicio</a></li>
 											<c:if test="${not empty user}">
 												<li><a href="isst_grupo07_socialex">Perfil</a></li>
-												<li><a href="#">Ingresar dinero</a></li>
-												<li><a href="solicitarCambioDivisas.jsp">Solicitar cambio de divisas</a></li>
+												<li><a href="recargarCuenta.jsp">Ingresar dinero</a></li>
+												<li><a href="#">Solicitar cambio de divisas</a></li>
 												<li><a href="mercadoDivisas">Mercado divisas</a></li>
            									</c:if>
 											<li><a href= "<c:url value="${url}"/>"><c:out value="${urlLinktext}"/></a></li>
@@ -49,21 +49,22 @@
 				<!-- Main -->
 					<article id="main">
 						<header>
-							<h2>Recarga de saldo</h2>
-							<p>En esta página podrá ingresar dinero en su cuenta </p>
+							<h2>Solicitar cambio de divisas</h2>
+							<p>Rellene el formulario para solicitar cambio de divisas</p>
 						</header>
 						<section class="wrapper style5">
 							<div class="inner">
-								<h4>Recarga de saldo</h4>
-								<p>Ingrese dinero en su divisa predeterminada. 
-								Para otras divisas solocite cambio de divisas.</p>
-									<form method="post" action="/recargaCuenta">
+								<h4>Cambio de divisas</h4>
+								<p>Realice una petición de cambio.</p>
+								<p>Introduce el importe y la divisa a la que quiere cambiar:</p>
+									<form method="post" action="/solicitarCambioDivisas">
 										<div class="row uniform">
-											<div class="6u 12u$(xsmall)">
-												<input type="text" name="cantidadRecarga" id="cantidadRecarga" value="" placeholder="Cantidad a recargar" min="1" />
+										<div class="1u">Cambiar</div>
+											<div class="3u 3u$(xsmall)">
+												<input type="text" name="cantidadSolicitada" id="cantidadSolicitada" value="" placeholder="Cantidad solicitada" min="1" />
 												<input type="hidden" name="localTime" id="localTime" value=""/>
 												<input type="hidden" name="numeroCuenta" id="numeroCuenta" value=<c:out value="${cuenta.id}"/> />
-												
+												<input type="hidden" name="divisaPredeterminada" id="divisaPredeterminada" value=<c:out value="${cuenta.divisaPredeterminada}"/> />
                                     				<script type="text/javascript">
                                       					 var now = new Date(); 
                                       					 var weekday = new Array(7);
@@ -78,11 +79,18 @@
                                       					 var nowFormatted = weekday[now.getUTCDay()]+"  "+now.getDate() + "/" +(now.getMonth() + 1) + "/" + now.getFullYear() +"  "+ now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
                                        					 document.getElementById("localTime").value = nowFormatted;
                                    					</script>
+                                   					
+												
+                                   					<!--https://gist.github.com/henrik/265014 -->
+										<!--Mercado actual de divisas -->
+										<script type="text/javascript">
+										
+									</script>
 											</div>
-											<div class="6u">
+											<div class="2u">
 												<div class="select-wrapper">
 						
-													<select name="divisas" id="divisa">
+													<select name="divisasPredet" id="divisaPredet">
 													<c:if test="${cuenta.divisaPredeterminada=='EUR'}">
 														<option value="EUR">Euro € (EUR)</option>
 													</c:if>
@@ -94,6 +102,39 @@
 													</c:if>
 													<c:if test="${cuenta.divisaPredeterminada=='JPY'}">
 														<option value="JPY">Yen japonés ¥ (JPY)</option>
+													</c:if>
+														<%-- 
+														<option value="USD">Dólar estadounidense $ (USD)</option>
+														<option value="GBP">Libra esterlina £ (GBP)</option>
+														<option value="JPY">Yen japonés ¥ (JPY)</option>
+														--%>
+													</select>
+												</div>
+											</div>
+											<div class="0u">a</div>
+											<div class="4u">
+												<div class="select-wrapper">
+						
+													<select name="divisas" id="divisaSolicitada">
+													<c:if test="${cuenta.divisaPredeterminada=='EUR'}">
+														<option value="USD">Dólar estadounidense $ (USD)</option>
+														<option value="GBP">Libra esterlina £ (GBP)</option>
+														<option value="JPY">Yen japonés ¥ (JPY)</option>
+													</c:if>
+													<c:if test="${cuenta.divisaPredeterminada=='USD'}">
+														<option value="EUR">Euro € (EUR)</option>
+														<option value="GBP">Libra esterlina £ (GBP)</option>
+														<option value="JPY">Yen japonés ¥ (JPY)</option>
+													</c:if>
+													<c:if test="${cuenta.divisaPredeterminada=='GBP'}">
+														<option value="EUR">Euro € (EUR)</option>
+														<option value="USD">Dólar estadounidense $ (USD)</option>
+														<option value="JPY">Yen japonés ¥ (JPY)</option>
+													</c:if>
+													<c:if test="${cuenta.divisaPredeterminada=='JPY'}">
+														<option value="EUR">Euro € (EUR)</option>
+														<option value="USD">Dólar estadounidense $ (USD)</option>
+														<option value="GBP">Libra esterlina £ (GBP)</option>
 													</c:if>
 														<%-- 
 														<option value="USD">Dólar estadounidense $ (USD)</option>
@@ -117,14 +158,19 @@
 												</c:if>
 												</div>
 											</div>
+			
+											<p id="test"></p>
+											
 											<div class="12u$">
 												<ul class="actions">
-													<li><input type="submit" value="Recargar" class="special" /></li>
+													<li><input type="submit" value="Solicitar cambio" class="special" /></li>
 													<li><input type="reset" value="Reset" /></li>
 												</ul>
 											</div>
 										</div>
 									</form>
+									
+				
 							</div>
 						</section>
 					</article>

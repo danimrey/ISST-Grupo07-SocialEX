@@ -18,11 +18,14 @@ import es.upm.dit.isst.g7.dao.ClienteDAO;
 import es.upm.dit.isst.g7.dao.ClienteDAOImpl;
 import es.upm.dit.isst.g7.dao.CuentaDAO;
 import es.upm.dit.isst.g7.dao.CuentaDAOImpl;
+import es.upm.dit.isst.g7.dao.SolicitudCambioDivisasDAO;
+import es.upm.dit.isst.g7.dao.SolicitudCambioDivisasDAOImpl;
 import es.upm.dit.isst.g7.dao.TarjetaDAO;
 import es.upm.dit.isst.g7.dao.TarjetaDAOImpl;
 import es.upm.dit.isst.g7.dao.TransaccionDAO;
 import es.upm.dit.isst.g7.dao.TransaccionDAOImpl;
 import es.upm.dit.isst.model.Cuenta;
+import es.upm.dit.isst.model.SolicitudCambioDivisas;
 import es.upm.dit.isst.model.Tarjeta;
 import es.upm.dit.isst.model.Transaccion;
 import es.upm.dit.isst.model.Transaccion.Tipo;
@@ -115,7 +118,7 @@ public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 				req.getSession().setAttribute("notificaciones", notifString);
 				
 				CuentaDAO daoCuentas = CuentaDAOImpl.getInstance();
-				req.getSession().setAttribute("tarjeta", daoCuentas.GetCuentabyCliente(user).getNumeroCuenta());
+				req.getSession().setAttribute("cuenta", daoCuentas.GetCuentabyCliente(user));
 				
 				//Cuenta
 				req.getSession().setAttribute("cuenta", daoCuentas.GetCuentabyCliente(user));
@@ -154,8 +157,15 @@ public class ISST_Grupo07_SocialEXServlet extends HttpServlet {
 				System.out.println("tran: "+tran.size());
 				System.out.println("Numero de cuenta: "+daoCuentas.GetCuentabyCliente(user).getNumeroCuenta());
 				req.getSession().setAttribute("transacciones", new ArrayList<Transaccion>(tran));
-			
-	
+				
+				//Solicitudes de cambio
+				SolicitudCambioDivisasDAO daoSolicitudes = SolicitudCambioDivisasDAOImpl.getInstance();
+				List<SolicitudCambioDivisas> solicitudesCambio = daoSolicitudes.readCuenta(daoCuentas.GetCuentabyCliente(user).getId());
+				req.getSession().setAttribute("solicitudesCambio", new ArrayList<SolicitudCambioDivisas>(solicitudesCambio)); 
+				//Todas las solicitudes de cambio
+				List<SolicitudCambioDivisas> todasSolicitudes = daoSolicitudes.readAll();
+				req.getSession().setAttribute("todasSolicitudes", new ArrayList<SolicitudCambioDivisas>(todasSolicitudes)); 
+
 				//Carga perfil
 				System.out.println("Carga perfil");
 				RequestDispatcher view = req.getRequestDispatcher("perfil.jsp") ;

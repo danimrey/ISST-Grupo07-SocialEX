@@ -19,11 +19,11 @@ public class SolicitudCambioDivisasDAOImpl implements SolicitudCambioDivisasDAO 
 	}
 	
 	@Override
-	public SolicitudCambioDivisas Create(int estado, double importeCambio,
+	public SolicitudCambioDivisas Create(int estado, double importeDivisaOriginal,
 			String divisaCambio, String divisaPredeterminada,
-			Long cuentaSolicitante, int modoSolicitud) {
+			Long cuentaSolicitante, int modoSolicitud, Long tarjeta, double importeDivisaACambiar) {
 		EntityManager em = EMFService.get().createEntityManager();
-		SolicitudCambioDivisas solicitud = new SolicitudCambioDivisas(estado, importeCambio, divisaCambio, divisaPredeterminada, cuentaSolicitante, modoSolicitud);
+		SolicitudCambioDivisas solicitud = new SolicitudCambioDivisas(estado, importeDivisaOriginal, divisaCambio, divisaPredeterminada, cuentaSolicitante, modoSolicitud, tarjeta,importeDivisaACambiar);
 		em.persist(solicitud);
 		em.close();
 		return solicitud;
