@@ -176,6 +176,7 @@
 												<th>Cantidad a cambiar</th>
 												<th>Cambio esperado</th>
 												<th>Estado</th>
+												<th>Acción</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -189,8 +190,23 @@
 															Pendiente
 														</c:if>
 														<c:if test="${sol.estado == 2}">
-															Aceptada
+															Completada
 														</c:if>
+													</td>
+													<td>
+													<c:if test="${sol.estado==2}">
+														Sin acciones
+													</c:if>
+													<c:if test="${sol.estado==1}">
+														<form method="post" action="/gestionCambioDivisas">
+															<%--Cuenta actual que acepta la petición de cambio --%>
+															<input type="hidden" name="cuentaAcepta" id="cuentaAcepta" value=<c:out value="${cuenta.id}"/> />
+															<%--Cuenta que había solicitado el cambio de divisas --%>
+															<input type="hidden" name="cuentaSolicitante" id="cuentaSolicitante" value=<c:out value="${sol.cuentaSolicitante}"/> />
+															<input type="hidden" name="idSolicitud" id="idSolicitud" value=<c:out value="${sol.id}"/> />
+															<input type="submit" name="action" value="Cancelar" class="special">
+														</form>
+													</c:if>
 													</td>
 												</tr>
 											</c:forEach> 	
@@ -222,24 +238,25 @@
 												</tr>
 												<tr>
 													<td>Euro/Dólar estadounidense</td>
-													<td><pa id="EUR/USD"></a></td>
+													<td><pa id="EUR/USD">1.1308</a></td>
 													<td>Dólar estadounidense/Euro</td>
-													<td><pa id="USD/EUR"></a></td>
+													<td><pa id="USD/EUR">0.8843</a></td>
 												</tr>
 												<tr>
 													<td>Euro/Libra esterlina</td>
-													<td><pa id="EUR/GBP"></a></td>
+													<td><pa id="EUR/GBP">0.7875</a></td>
 													<td>Libra esterlina/Euro</td>
-													<td><pa id="GBP/EUR"></a></td>
+													<td><pa id="GBP/EUR">1.2698</a></td>
 												</tr>
 												<tr>
 													<td>Euro/Yen japonés</td>
-													<td><pa id="EUR/JPY"></a></td>
+													<td><pa id="EUR/JPY">122.8501</a></td>
 													<td>Yen japonés/Euro</td>
-													<td><pa id="JPY/EUR"></a></td>
+													<td><pa id="JPY/EUR">0.0081</a></td>
 												</tr>
 											</tbody>
-										</table>		
+										</table>	
+										<%-- 
 										<!--https://gist.github.com/henrik/265014 -->
 										<!--Mercado actual de divisas -->			
 										<script type="text/javascript">
@@ -272,6 +289,7 @@
 											getRate("EUR", "JPY");
 											getRate("JPY", "EUR");
 										</script>
+										--%>
 									</div>
 							</div>
 						</section>

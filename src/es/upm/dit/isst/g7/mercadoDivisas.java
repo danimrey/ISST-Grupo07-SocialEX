@@ -74,7 +74,9 @@ public class mercadoDivisas extends HttpServlet {
 						Cuenta unaCuentaDeAmigo = daoCuenta.GetCuentabyCliente(amigos.get(i));
 						List<SolicitudCambioDivisas> todasSolicitudesUnAmigo = daoSolicitudes.readCuenta(unaCuentaDeAmigo.getId());
 						for(int j=0; j<todasSolicitudesUnAmigo.size(); j++){
-							todasSolicitudes.add(todasSolicitudesUnAmigo.get(j));
+							if(todasSolicitudesUnAmigo.get(j).getEstado()==1){
+								todasSolicitudes.add(todasSolicitudesUnAmigo.get(j));
+							}
 						}
 					}
 					req.getSession().setAttribute("todasSolicitudes", new ArrayList<SolicitudCambioDivisas>(todasSolicitudes));
