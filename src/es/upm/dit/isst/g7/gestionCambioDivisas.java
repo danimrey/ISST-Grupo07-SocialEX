@@ -85,15 +85,22 @@ public class gestionCambioDivisas extends HttpServlet {
 					MatchingCambioDivisasDAO daoMatching = MatchingCambioDivisasDAOImpl.getInstance();
 					//Crea una solicitud para el cliente 2. Tarjeta es 0 porque el cambio se hace con el saldo de la cuenta.
 					SolicitudCambioDivisas nuevaSol = daoSolicitud.Create(2, importeMonedaCambiada, divisaOriginal, divisaCambio, cuentaAcepta, 2, (long) 0, importeMonedaOriginal);
-					MatchingCambioDivisas matching = daoMatching.Create(1, idSolicitud, nuevaSol.getId(), 0.0);
+					//Comisión
+					YahooCurrencyConverter comision1 = new YahooCurrencyConverter();
+					Double comisionCuenta1 = importeMonedaOriginal*0.01;
+					Double comisionCuenta2 = importeMonedaCambiada*0.01;
+					Double comisionFinal = comisionCuenta1*(comision1.convert(divisaOriginal, "EUR"))+comisionCuenta2*(comision1.convert(divisaCambio, "EUR"));
+					MatchingCambioDivisas matching = daoMatching.Create(1, idSolicitud, nuevaSol.getId(), comisionFinal);
 					//Actualiza el saldo de las cuentas de los 2 clientes
 					//Cuenta 1
 					cuentaMonedaOrigen.addSaldo(divisaOriginal, importeMonedaOriginal*(-1));
+					cuentaMonedaOrigen.addSaldo(divisaOriginal, comisionCuenta1*(-1));
 					cuentaMonedaOrigen.addSaldo(divisaCambio, importeMonedaCambiada);
 					daoCuenta.update(cuentaMonedaOrigen);
 					//Cuenta 2
 					cuentaMonedaACambiar.addSaldo(divisaOriginal, importeMonedaOriginal);
 					cuentaMonedaACambiar.addSaldo(divisaCambio, importeMonedaCambiada*(-1));
+					cuentaMonedaACambiar.addSaldo(divisaCambio, comisionCuenta2*(-1));
 					daoCuenta.update(cuentaMonedaACambiar);
 
 					//Registra la operación en la tabla Transacciones
@@ -104,18 +111,24 @@ public class gestionCambioDivisas extends HttpServlet {
 					String formatted = format1.format(hoy.getTime());
 					//
 					Transaccion trancuentaMonedaOrigenAddSaldo = daoTransaccion.createTransaccion(cuentaSolicitante, formatted, divisaOriginal, importeMonedaOriginal*(-1), "Cambio de divisas", Tipo.CAMBIO_DIVISAS_SACAR, "Cuenta");
+					Transaccion trancuentaMonedaOrigenComision1 = daoTransaccion.createTransaccion(cuentaSolicitante, formatted, divisaOriginal, comisionCuenta1*(-1), "Cambio de divisas - Comisión", Tipo.CAMBIO_DIVISAS_COMISION, "Cuenta");
 					Transaccion trancuentaMonedaOrigenQuitaSaldo = daoTransaccion.createTransaccion(cuentaSolicitante, formatted, divisaCambio, importeMonedaCambiada, "Cambio de divisas", Tipo.CAMBIO_DIVISAS_ADD, "Cuenta");
+					daoTransaccion.update(trancuentaMonedaOrigenComision1);
 					daoTransaccion.update(trancuentaMonedaOrigenQuitaSaldo);
 					daoTransaccion.update(trancuentaMonedaOrigenAddSaldo);
 					//
 					Transaccion trancuentaMonedaACambiarAddSaldo = daoTransaccion.createTransaccion(cuentaAcepta, formatted, divisaOriginal, importeMonedaOriginal, "Cambio de divisas", Tipo.CAMBIO_DIVISAS_ADD, "Cuenta");
 					Transaccion trancuentaMonedaACambiarQuitaSaldo = daoTransaccion.createTransaccion(cuentaAcepta, formatted, divisaCambio, importeMonedaCambiada*(-1), "Cambio de divisas", Tipo.CAMBIO_DIVISAS_SACAR, "Cuenta");
+					Transaccion trancuentaMonedaACambiarComision2 = daoTransaccion.createTransaccion(cuentaAcepta, formatted, divisaCambio, comisionCuenta2*(-1), "Cambio de divisas - Comision", Tipo.CAMBIO_DIVISAS_COMISION, "Cuenta");
+					daoTransaccion.update(trancuentaMonedaACambiarComision2);
 					daoTransaccion.update(trancuentaMonedaACambiarAddSaldo);
 					daoTransaccion.update(trancuentaMonedaACambiarQuitaSaldo);
 					
 					//Actualiza estado
 					solicitud.setEstado(2);
 					daoSolicitud.Update(solicitud);
+					
+					//Mensaje
 					ClienteDAO dao = ClienteDAOImpl.getInstance();
 					if(dao.GetClientebyCorreo(cuentaMonedaOrigen.getCliente()).getNotificaciones() == 1){
 						try{
