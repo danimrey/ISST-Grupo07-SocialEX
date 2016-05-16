@@ -87,8 +87,8 @@ public class gestionCambioDivisas extends HttpServlet {
 					SolicitudCambioDivisas nuevaSol = daoSolicitud.Create(2, importeMonedaCambiada, divisaOriginal, divisaCambio, cuentaAcepta, 2, (long) 0, importeMonedaOriginal);
 					//Comisión
 					YahooCurrencyConverter comision1 = new YahooCurrencyConverter();
-					Double comisionCuenta1 = importeMonedaOriginal*0.01;
-					Double comisionCuenta2 = importeMonedaCambiada*0.01;
+					Double comisionCuenta1 = importeMonedaOriginal*0.008;
+					Double comisionCuenta2 = importeMonedaCambiada*0.008;
 					Double comisionFinal = comisionCuenta1*(comision1.convert(divisaOriginal, "EUR"))+comisionCuenta2*(comision1.convert(divisaCambio, "EUR"));
 					MatchingCambioDivisas matching = daoMatching.Create(1, idSolicitud, nuevaSol.getId(), comisionFinal);
 					//Actualiza el saldo de las cuentas de los 2 clientes
