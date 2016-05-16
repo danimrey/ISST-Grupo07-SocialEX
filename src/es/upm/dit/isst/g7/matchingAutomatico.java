@@ -37,6 +37,7 @@ import es.upm.dit.isst.model.MatchingCambioDivisas;
 import es.upm.dit.isst.model.SolicitudCambioDivisas;
 import es.upm.dit.isst.model.Transaccion;
 import es.upm.dit.isst.model.Transaccion.Tipo;
+import es.upm.dit.isst.yahoo.YahooCurrencyConverter;
 
 @SuppressWarnings("serial")
 public class matchingAutomatico extends HttpServlet {
@@ -125,25 +126,34 @@ public class matchingAutomatico extends HttpServlet {
 							cuentaMassmoney.addSaldo(todasSolicitudes.get(i).getDivisaPredeterminada(), (-1)*diferenciaCambio1);
 							cuentaMassmoney.addSaldo(todasSolicitudes.get(j).getDivisaPredeterminada(), (-1)*diferenciaCambio2);
 							daoCuenta.update(cuentaMassmoney);
+							//Comisiones
+							YahooCurrencyConverter com = new YahooCurrencyConverter();
+							Double comisionCuenta1 = importeMonedaOriginalCuenta1*0.01;
+							Double comisionCuenta2 = importeMonedaOriginalCuenta2*0.01;
+							Double comisionFinal = comisionCuenta1*(com.convert(todasSolicitudes.get(i).getDivisaPredeterminada(), "EUR")) + comisionCuenta2*(com.convert(todasSolicitudes.get(j).getDivisaPredeterminada(), "EUR"));
 							//Transacciones
 							Transaccion tranMassMoney1 = daoTransacciones.createTransaccion(cuentaMassmoney.getId(), fecha, todasSolicitudes.get(i).getDivisaPredeterminada(), (-1)*diferenciaCambio1, "Match automatico cambio divisas", Tipo.AJUSTE_MATCH_AUTO, "Fondo Massmoney");
 							Transaccion tranMassMoney2 = daoTransacciones.createTransaccion(cuentaMassmoney.getId(), fecha, todasSolicitudes.get(j).getDivisaPredeterminada(), (-1)*diferenciaCambio2, "Match automatico cambio divisas", Tipo.AJUSTE_MATCH_AUTO, "Fondo Massmoney");
+
 							//Cuenta1 (USD)
 							cuenta1.addSaldo(todasSolicitudes.get(i).getDivisaPredeterminada(), (-1)*importeMonedaOriginalCuenta1);
+							cuenta1.addSaldo(todasSolicitudes.get(i).getDivisaPredeterminada(), (-1)*comisionCuenta1);
 							cuenta1.addSaldo(todasSolicitudes.get(i).getDivisaCambio(), importeSolicitadoCuenta1);
 							daoCuenta.update(cuenta1);
 							//Transacciones
 							Transaccion tranCuenta1Quitar = daoTransacciones.createTransaccion(idCuenta1, fecha, todasSolicitudes.get(i).getDivisaPredeterminada(), (-1)*importeMonedaOriginalCuenta1, "Cambio divisas", Tipo.CAMBIO_DIVISAS_SACAR, "0");
+							Transaccion tranCuenta1Comision = daoTransacciones.createTransaccion(idCuenta1, fecha, todasSolicitudes.get(i).getDivisaPredeterminada(), (-1)*comisionCuenta1, "Cambio divisas- Comisión", Tipo.CAMBIO_DIVISAS_COMISION, "0");
 							Transaccion tranCuenta1Add = daoTransacciones.createTransaccion(idCuenta1, fecha, todasSolicitudes.get(i).getDivisaCambio(), importeSolicitadoCuenta1, "Cambio divisas", Tipo.CAMBIO_DIVISAS_ADD, "0");
 		
 							//Cuenta2 (EUR)
 							cuenta2.addSaldo(todasSolicitudes.get(j).getDivisaPredeterminada(), (-1)*importeMonedaOriginalCuenta2);
+							cuenta2.addSaldo(todasSolicitudes.get(j).getDivisaPredeterminada(), (-1)*comisionCuenta2);
 							cuenta2.addSaldo(todasSolicitudes.get(j).getDivisaCambio(), importeSolicitadoCuenta2);
 							daoCuenta.update(cuenta2);
 							//Transacciones
 							Transaccion tranCuenta2Quitar = daoTransacciones.createTransaccion(idCuenta2, fecha, todasSolicitudes.get(j).getDivisaPredeterminada(), (-1)*importeMonedaOriginalCuenta2, "Cambio divisas", Tipo.CAMBIO_DIVISAS_SACAR, "0");
 							Transaccion tranCuenta2Add = daoTransacciones.createTransaccion(idCuenta2, fecha, todasSolicitudes.get(j).getDivisaCambio(), importeSolicitadoCuenta2, "Cambio divisas", Tipo.CAMBIO_DIVISAS_ADD, "0");
-							
+							Transaccion tranCuenta2Comision = daoTransacciones.createTransaccion(idCuenta2, fecha, todasSolicitudes.get(j).getDivisaPredeterminada(), (-1)*comisionCuenta2, "Cambio divisas - Comisión", Tipo.CAMBIO_DIVISAS_COMISION, "0");
 							//Actualizacion solicitud
 							SolicitudCambioDivisas sol1 = daoSolicitudes.read(todasSolicitudes.get(i).getId());
 							sol1.setEstado(2);
@@ -154,7 +164,7 @@ public class matchingAutomatico extends HttpServlet {
 							daoSolicitudes.Update(sol2);
 							
 							//Math
-							MatchingCambioDivisas match = daoMatching.Create(1, idCuenta1, idCuenta2, 0.0);
+							MatchingCambioDivisas match = daoMatching.Create(1, idCuenta1, idCuenta2, comisionFinal);
 							//Control
 							control = 1;
 							
